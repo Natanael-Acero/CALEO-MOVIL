@@ -3,7 +3,7 @@ import { ActivityIndicator, View, Alert, KeyboardAvoidingView } from 'react-nati
 import { useNavigation } from "@react-navigation/core";
 import { urlBack } from '../../environments/environments.url';
 import { StyledInput, LogoImage, PressableButton } from '../Login/Login.styles';
-import axios from 'axios';
+import { RegistroService } from '../../services/Auth/RegistroService';
 
 export const Registro = () => {
 
@@ -34,27 +34,23 @@ export const Registro = () => {
         setCargando(true);
 
         try {
-            await axios
-                .post(`${urlBack}/persona`, usuario)
-                .then((response) => {
-                    console.log(response);
-                    Alert.alert('Registro Exitoso', response.data.msg)
-                    setCargando(false);
-                    navigation.replace("Login");
-                    setUsuario({
-                        strNombre: '',
-                        strPrimerApellido: '',
-                        strSegundoApellido: '',
-                        strEmail: '',
-                        strPassword: '',
-                        strTelefono: '',
-                        strDireccion: ''
-                    });
-                })
+            await RegistroService(usuario).then((response) => {
+                Alert.alert('Registro Exitoso', response.data.msg)
+                setCargando(false);
+                navigation.replace("Login");
+                setUsuario({
+                    strNombre: '',
+                    strPrimerApellido: '',
+                    strSegundoApellido: '',
+                    strEmail: '',
+                    strPassword: '',
+                    strTelefono: '',
+                    strDireccion: ''
+                });
+            })
                 .catch((error) => {
                     setCargando(false);
-
-                    Alert.alert('Error al iniciar sesión', error.response.data.err.message ? error.response.data.err.message : 'Error')
+                    Alert.alert('Error al registrar cuenta', error.response ? error.response.data.msg : 'Error al registrar al usuario')
                 })
 
         } catch (error) {
