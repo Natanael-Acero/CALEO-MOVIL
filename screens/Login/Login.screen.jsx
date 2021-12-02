@@ -6,6 +6,7 @@ import { StyledInput, LogoImage, PressableButton } from './Login.styles';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import jwt_decode from "jwt-decode";
+import { LoginService } from '../../services/Auth/LoginService';
 
 export const Login = ({ setUser }) => {
 
@@ -18,7 +19,6 @@ export const Login = ({ setUser }) => {
     const handleLoggedIn = async () => {
         setCargando(true);
         const localToken = await AsyncStorage.getItem('authorization')
-        console.log(localToken);
         if (localToken !== null) {
             const tokenDecoded = jwt_decode(localToken);
             setUser({ ...tokenDecoded.usuario });
@@ -37,8 +37,7 @@ export const Login = ({ setUser }) => {
         const data = { strCorreo: email, strContrasena: password }
         setCargando(true);
         try {
-            axios
-                .post(`${urlBack}/login`, data)
+            LoginService(data)
                 .then(async (response) => {
                     await AsyncStorage.setItem('authorization', response.data.token);
                     setUser({ ...response.data.usuario });
@@ -51,7 +50,6 @@ export const Login = ({ setUser }) => {
                 })
         } catch (error) {
             setCargando(false)
-            console.log(error);
         }
 
     }
