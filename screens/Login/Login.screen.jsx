@@ -1,29 +1,52 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ActivityIndicator, View, Alert, KeyboardAvoidingView } from 'react-native';
 import { useNavigation } from "@react-navigation/core";
 import { urlBack } from '../../environments/environments.url';
 import { StyledInput, LogoImage, PressableButton } from './Login.styles';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import jwt_decode from "jwt-decode";
 
 export const Login = ({ setUser }) => {
+
     const navigation = useNavigation();
+
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
     const [cargando, setCargando] = useState(false);
+
+    const handleLoggedIn = async () => {
+        setCargando(true);
+        const localToken = await AsyncStorage.getItem('authorization')
+        console.log(localToken);
+        if (localToken !== null) {
+            const tokenDecoded = jwt_decode(localToken);
+            setUser({ ...tokenDecoded.usuario });
+            setTimeout(() => {
+                setCargando(false);
+                navigation.replace("Home");
+            }, 1500);
+
+        }
+        setTimeout(() => {
+            setCargando(false);
+        }, 1500);
+    }
+
     const handleLogin = async () => {
         const data = { strCorreo: email, strContrasena: password }
         setCargando(true);
         try {
             axios
                 .post(`${urlBack}/login`, data)
-                .then((response) => {
-                    console.log(response);
+                .then(async (response) => {
+                    await AsyncStorage.setItem('authorization', response.data.token);
+                    setUser({ ...response.data.usuario });
+                    setCargando(false);
                     navigation.replace("Home");
-                    setCargando(false)
                 })
                 .catch((error) => {
-                    console.log(error.response)
-                    setCargando(false)
+                    setCargando(false);
                     Alert.alert('Error al iniciar sesión', error.response ? error.response.data.err.message : 'Error')
                 })
         } catch (error) {
@@ -32,6 +55,11 @@ export const Login = ({ setUser }) => {
         }
 
     }
+
+    useEffect(() => {
+        handleLoggedIn();
+    }, [])
+
     return (
         <KeyboardAvoidingView style={{ flex: 1, alignItems: "center", justifyContent: "center" }} behavior={Platform.OS === "ios" ? "padding" : "height"}>
             <LogoImage source={require('../../assets/caleoLogo.png')} />

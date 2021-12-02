@@ -3,7 +3,9 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { Home } from "../screens/Home/Home.screen"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { colors } from '../styles/colors.styles';
-// import ProfileComponent from '../screens/Profile/Profile.component';
+import { Profile } from '../screens/Profile/Profile.screen';
+import { Cars } from '../screens/Cars/Cars.screen';
+
 
 const Tab = createBottomTabNavigator();
 
@@ -17,13 +19,18 @@ export const TabsComponent = ({ user }) => {
 
                         if (route.name === "HomeScreen") {
                             iconName = focused
-                                ? "list-circle"
-                                : "list-circle-outline";
+                                ? "grid"
+                                : "grid-outline";
                         }
                         if (route.name === "My profile") {
                             iconName = focused
                                 ? "person-circle"
                                 : "person-circle-outline";
+                        }
+                        if (route.name === "My cars") {
+                            iconName = focused
+                                ? "car-sport"
+                                : "car-sport-outline";
                         }
                         return <Ionicons name={iconName} size={size} color={color} />;
                     },
@@ -32,7 +39,7 @@ export const TabsComponent = ({ user }) => {
                 })}
             >
                 <Tab.Screen name="HomeScreen" options={{
-                    title: 'Home',
+                    title: 'Cajónes',
                     headerStyle: {
                         backgroundColor: colors.primary
                     },
@@ -43,8 +50,10 @@ export const TabsComponent = ({ user }) => {
                 }}  >
                     {() => <Home user={user} />}
                 </Tab.Screen>
-                {/* <Tab.Screen name="My profile" options={{
-                    title: 'My profile',
+
+
+                <Tab.Screen name="My cars" options={{
+                    title: 'Mis carros',
                     headerStyle: {
                         backgroundColor: colors.secundary
                     },
@@ -53,8 +62,21 @@ export const TabsComponent = ({ user }) => {
                     },
                     tabBarActiveTintColor: colors.secundary
                 }}  >
-                    {() => <ProfileComponent user={user} />}
-                </Tab.Screen> */}
+                    {() => <Cars user={user} />}
+                </Tab.Screen>
+
+                <Tab.Screen name="My profile" options={{
+                    title: 'Perfil',
+                    headerStyle: {
+                        backgroundColor: colors.secundary
+                    },
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                    },
+                    tabBarActiveTintColor: colors.secundary
+                }}  >
+                    {() => <Profile user={user} />}
+                </Tab.Screen>
 
             </Tab.Navigator>
         </>

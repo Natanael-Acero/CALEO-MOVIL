@@ -1,1 +1,3 @@
-export const urlBack = 'https://estacionamiento-web-back.herokuapp.com/api';
+const urlBack = 'https://estacionamiento-web-back.herokuapp.com/api';
+
+export { urlBack }
