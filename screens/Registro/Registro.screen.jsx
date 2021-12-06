@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { ActivityIndicator, View, Alert, KeyboardAvoidingView } from 'react-native';
 import { useNavigation } from "@react-navigation/core";
-import { urlBack } from '../../environments/environments.url';
 import { StyledInput, LogoImage, PressableButton } from '../Login/Login.styles';
 import { RegistroService } from '../../services/Auth/RegistroService';
 
