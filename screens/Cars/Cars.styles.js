@@ -9,7 +9,7 @@ const Container = styled.SafeAreaView`
     align-items: center;
 `;
 
-const TaskList = styled.FlatList`
+const CarList = styled.FlatList`
     flex: 1;
 `;
 
@@ -18,57 +18,49 @@ const Card = styled.View`
     justify-content: space-between;
     align-items: center;
     width: ${Math.round(width)}px;
+    height: 100px;
     border-radius: 15px;
     background-color: ${colors.white} ;
     padding: 0;
     margin: 5px;
     box-shadow: 1px 1px 2px #cfcfcf;
-    text-align: justify;
+    text-align: center;
 `;
 
 
-const TaskStatusButton = styled.TouchableOpacity`
+const InfoButton = styled.TouchableOpacity`
     flex: 1;
-    align-items: baseline; 
-    margin-left: 10px;
+    align-items: center; 
+    /* margin-right: 10px; */
 `;
 
-const DeleteButton = styled.TouchableOpacity`
-    flex: 1;
-    align-items: baseline; 
-    margin-right: 10px;
+const Image = styled.Image`
+    width: 70px;
+    height: 70px;
+    margin: 20px;
+    borderRadius: 10px;
 `;
 
-const Task = styled.Text`
-    flex: 10;
+const Car = styled.Text`
+    flex: 3;
+    align-items: center;
     font-size: 17px;
     color: ${colors.black};
-    padding: 20px ;
+    padding:10px;
 `;
 
 const AddButtonContainer = styled.KeyboardAvoidingView`
     background-color: transparent;
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-end;
+    justify-content: flex-end;
 `;
 
 const AddButton = styled.TouchableOpacity`
     flex: 1;
-    align-items: center;
+    align-items: flex-end;
+    padding: 20px;
 `;
-
-const Input = styled.TextInput`
-    background-color: ${colors.white};
-    flex: 3;
-    padding: 5px;
-    margin: 10px;
-    border-radius: 8px;
-    height: 40px;
-    width: 100%;
-    font-size: 20px;
-    box-shadow: 1px 3px 5px #cfcfcf;
-  `;
 
 const Label = styled.Text`
   align-items: center;
@@ -77,4 +69,4 @@ const Label = styled.Text`
   padding:5px;
 `;
 
-export { Container, TaskList, Card, Task, TaskStatusButton, DeleteButton, AddButtonContainer, AddButton, Input, Label }
+export { Container, CarList, Card, Car, InfoButton, AddButtonContainer, AddButton, Label, Image }
