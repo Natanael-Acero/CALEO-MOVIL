@@ -27,6 +27,21 @@ const Card = styled.View`
     text-align: center;
 `;
 
+const CardColorPicker = styled.View`
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    /* width: ${Math.round(width)}px; */
+    height: 150px;
+    border-radius: 15px;
+    background-color: ${colors.white} ;
+    padding: 0;
+    margin: 5px;
+    margin-top: 10px;
+    /* box-shadow: 1px 1px 2px #cfcfcf; */
+    text-align: center;
+`;
+
 
 const InfoButton = styled.TouchableOpacity`
     flex: 1;
@@ -69,6 +84,13 @@ const Label = styled.Text`
   padding:5px;
 `;
 
+const LabelColor = styled.Text`
+  align-items: center;
+  font-size: 14px;
+  color: #c7c7c7;
+  padding:5px;
+`;
+
 const ModalContainer = styled.View`
     flex: 1;
     justify-content: center;
@@ -94,4 +116,4 @@ const ModalText = styled.Text`
     text-align: center;
 `;
 
-export { ModalText, CloseButton, Container, CarList, Card, Car, InfoButton, AddButtonContainer, AddButton, Label, Image, ModalContainer, ModalView }
+export { LabelColor, CardColorPicker, ModalText, CloseButton, Container, CarList, Card, Car, InfoButton, AddButtonContainer, AddButton, Label, Image, ModalContainer, ModalView }
