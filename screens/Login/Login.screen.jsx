@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ActivityIndicator, View, Alert, KeyboardAvoidingView } from 'react-native';
 import { useNavigation } from "@react-navigation/core";
-import { urlBack } from '../../environments/environments.url';
 import { StyledInput, LogoImage, PressableButton } from './Login.styles';
-import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import jwt_decode from "jwt-decode";
 import { LoginService } from '../../services/Auth/LoginService';

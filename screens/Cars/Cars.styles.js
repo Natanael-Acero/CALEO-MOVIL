@@ -120,4 +120,13 @@ const ModalText = styled.Text`
     text-align: center;
 `;
 
-export { LabelColor, CardColorPicker, ModalText, CloseButton, Container, CarList, Card, Car, InfoButton, AddButtonContainer, AddButton, Label, Image, ModalContainer, ModalView }
+const DrawerText = styled.Text`
+    font-size: 18px;
+    margin: 20px;
+`
+const DrawerButton = styled.TouchableOpacity`
+    flex: 1;
+    align-content: center;
+`
+
+export { DrawerButton, DrawerText, LabelColor, CardColorPicker, ModalText, CloseButton, Container, CarList, Card, Car, InfoButton, AddButtonContainer, AddButton, Label, Image, ModalContainer, ModalView }

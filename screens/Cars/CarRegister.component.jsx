@@ -1,29 +1,25 @@
-import React, { useState } from 'react'
-import { Button } from 'react-native'
+import React, { useRef, useState, useEffect } from 'react'
 import { ActivityIndicator, View, Alert, KeyboardAvoidingView, Dimensions, Modal } from 'react-native';
 import { useNavigation } from "@react-navigation/core";
+import { Ionicons } from '@expo/vector-icons';
+import * as ImagePicker from 'expo-image-picker';
+import { Modalize } from 'react-native-modalize';
 import { urlBack } from '../../environments/environments.url';
 import { StyledInput, LogoImage, PressableButton } from '../../screens/Login/Login.styles';
 import {
     Container,
-    CarList,
-    Card,
-    Car,
-    InfoButton,
-    AddButtonContainer,
-    AddButton,
     Label,
-    LabelColor,
-    Image,
     ModalContainer,
     ModalView,
     CloseButton,
-    ModalText,
-    CardColorPicker
+    DrawerButton,
+    DrawerText
 } from "./Cars.styles";
-import { ColorPicker, TriangleColorPicker, fromHsv } from 'react-native-color-picker'
+import { ColorPicker, fromHsv } from 'react-native-color-picker'
 
 export const CarRegister = () => {
+
+    const modalizeRef = useRef(null);
 
     const [modalVisible, setModalVisible] = useState(false);
 
@@ -38,15 +34,47 @@ export const CarRegister = () => {
         idCajon: ''
     });
 
+    const onOpen = () => {
+        modalizeRef.current.open();
+    };
+
+    const pickImage = async () => {
+        try {
+            let result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.All,
+                allowsEditing: true,
+                aspect: [1, 1],
+                quality: 1,
+                base64: true
+            });
+
+            if (!result.cancelled) {
+                let uploadUri = Platform.OS === 'ios' ? result.uri.replace('file://', '') : result.uri;
+                let imageName = uploadUri.substring(uploadUri.lastIndexOf('/') + 1);
+                let match = /\.(\w+)$/.exec(imageName);
+                let type = match ? `image/${match[1]}` : `image`;
+                // await uploadPhoto({
+                //     uri: uploadUri,
+                //     name: imageName,
+                //     type
+                // })
+
+            }
+        } catch (error) {
+            console.error(error);
+            Toast.show("An error has ocurred!", {
+                duration: Toast.durations.SHORT,
+                position: Toast.positions.TOP,
+                containerStyle: { marginTop: 50 },
+            });
+        }
+    };
+
     const handleInputChange = (field) => {
         setNewCar({
             ...newCar,
             ...field
         });
-    }
-
-    const handleAddImage = () => {
-
     }
 
     const handleAddColor = () => {
@@ -62,6 +90,61 @@ export const CarRegister = () => {
             Alert.alert('Error', error.response.data.msg);
         }
     }
+
+    useEffect(() => {
+        (async () => {
+            if (Platform.OS !== 'web') {
+                const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+                await ImagePicker.requestCameraPermissionsAsync();
+
+                if (status !== 'granted') {
+                    alert('Sorry, we need camera roll permissions to make this work!');
+                }
+            }
+            setUserImage(`${urlBack}/imagen?ruta=personas&img=${user.strImg}`);
+        })();
+    }, []);
+
+    const takePicture = async () => {
+
+        try {
+            let result = await ImagePicker.launchCameraAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.All,
+                allowsEditing: true,
+                aspect: [1, 1],
+                quality: 1,
+            });
+            if (!result.cancelled) {
+                console.log(result);
+                let uploadUri = Platform.OS === 'ios' ? result.uri.replace('file://', '') : result.uri;
+                let imageName = uploadUri.substring(uploadUri.lastIndexOf('/') + 1);
+                try {
+                    let match = /\.(\w+)$/.exec(imageName);
+                    let type = match ? `image/${match[1]}` : `image`;
+                    // await uploadPhoto({
+                    //     uri: uploadUri,
+                    //     name: imageName,
+                    //     type
+                    // })
+                } catch (error) {
+                    console.log(error);
+                    Toast.show("An error has ocurred!", {
+                        duration: Toast.durations.SHORT,
+                        position: Toast.positions.TOP,
+                        containerStyle: { marginTop: 50 },
+                    });
+                }
+            }
+        } catch (error) {
+            console.error(error);
+            Toast.show("An error has ocurred!", {
+                duration: Toast.durations.SHORT,
+                position: Toast.positions.TOP,
+                containerStyle: { marginTop: 50 },
+            });
+        }
+    }
+
 
 
     return (
@@ -134,13 +217,16 @@ export const CarRegister = () => {
                             />
                             <PressableButton title="Add Color" color="darkorange" bgColor="white" onPress={handleAddColor} />
 
-                            <PressableButton title="Add Image" color="darkorange" bgColor="white" onPress={handleRegister} />
+                            <PressableButton title="Add Image" color="darkorange" bgColor="white" onPress={onOpen} />
                             <PressableButton title="Register" color="white" bgColor="darkorange" onPress={handleRegister} />
-
                         </View>
                     )
                 }
             </KeyboardAvoidingView>
+            <Modalize ref={modalizeRef} modalHeight={150} >
+                <DrawerButton onPress={pickImage}><DrawerText><Ionicons name="cloud-upload-outline" size={30} color='black' /> Upload Image</DrawerText></DrawerButton>
+                <DrawerButton onPress={takePicture}><DrawerText><Ionicons name="camera-outline" size={30} color='black' /> Take photo</DrawerText></DrawerButton>
+            </Modalize>
         </Container>
     )
 }

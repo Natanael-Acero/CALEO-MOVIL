@@ -5,11 +5,12 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Login } from './screens/Login/Login.screen';
 import { Registro } from './screens/Registro/Registro.screen';
 import { TabsComponent } from './components/Tabs.component';
+import moment from 'moment';
+moment.locale('es-mx')
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-
   const [user, setUser] = React.useState({});
 
   return (
