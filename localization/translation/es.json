@@ -1,21 +1,16 @@
   {
-"email": "Correo",
-"password":"Contraseña",
-"login":"Iniciar Sesión",
-"noaccount":"¿No tiene cuenta? Registrarse ",
-"name":"Nombre(s)",
-"primerApellido":"Primer Apellido",
-"segundoApellido":"Segundo Apellido",
-"telefono":"Teléfono",
-"direccion":"Dirección",
-"register":"Registrarse",
-
-
-
-"other_text": "Esta es una aplicación con múltiples idiomas ",
-"nested": {
-    "nested_1": "Este es un texto anidado",
-    "nested_2": "Este es otro texto anidado"
-}
-
-}
+    "email": "Correo",
+    "password": "Contraseña",
+    "login": "Iniciar Sesión",
+    "noaccount": "¿No tiene cuenta? Registrarse ",
+    "name": "Nombre(s)",
+    "primerApellido": "Primer Apellido",
+    "segundoApellido": "Segundo Apellido",
+    "telefono": "Teléfono",
+    "direccion": "Dirección",
+    "register": "Registrarse",
+    "alerLogin": "Error al iniciar sesión",
+    "alerRegistro": "Registro Exitoso",
+    "alerError": "Error al registrar cuenta",
+    "alertErrorUsuario": "Error al registrar al usuario"
+  }

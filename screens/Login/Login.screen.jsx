@@ -46,7 +46,7 @@ export const Login = ({ setUser }) => {
                 })
                 .catch((error) => {
                     setCargando(false);
-                    Alert.alert('Error al iniciar sesión', error.response ? error.response.data.err.message : 'Error')
+                    Alert.alert(i18n.t("alerLogin"), error.response ? error.response.data.err.message : 'Error')
                 })
         } catch (error) {
             setCargando(false)

@@ -1,18 +1,16 @@
   {
-"email": "Email",
-"password":"Password",
-"login":"Login",
-"noaccount":"No Account? Sign Up ",
-"name":"First Name",
-"primerApellido":"Last Name",
-"segundoApellido":"Middle surname",
-"telefono":"Telephone",
-"direccion":"Address",
-"register":"Register",
-"other_text": "Esta es una aplicación con múltiples idiomas ",
-"nested": {
-    "nested_1": "Este es un texto anidado",
-    "nested_2": "Este es otro texto anidado"
-}
-
-}
+    "email": "Email",
+    "password": "Password",
+    "login": "Login",
+    "noaccount": "No Account? Sign Up ",
+    "name": "First Name",
+    "primerApellido": "Last Name",
+    "segundoApellido": "Middle surname",
+    "telefono": "Telephone",
+    "direccion": "Address",
+    "register": "Register",
+    "alerLogin": "login failed",
+    "alerRegistro": "Registered Correctly",
+    "alerError": "Error registering account",
+    "alertErrorUsuario": "Error registering user"
+  }

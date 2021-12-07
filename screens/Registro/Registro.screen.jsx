@@ -35,7 +35,7 @@ export const Registro = () => {
 
         try {
             await RegistroService(usuario).then((response) => {
-                Alert.alert('Registro Exitoso', response.data.msg)
+                Alert.alert(i18n.t("alerRegistro"), response.data.msg)
                 setCargando(false);
                 navigation.replace("Login");
                 setUsuario({
@@ -50,7 +50,7 @@ export const Registro = () => {
             })
                 .catch((error) => {
                     setCargando(false);
-                    Alert.alert('Error al registrar cuenta', error.response ? error.response.data.msg : 'Error al registrar al usuario')
+                    Alert.alert(i18n.t("alerError"), error.response ? error.response.data.msg : i18n.t("alertErrorUsuario"))
                 })
 
         } catch (error) {
