@@ -5,7 +5,14 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "test": "jest"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "transformIgnorePatterns": [
+      "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg|@react-native-async-storage/async-storage|@react-navigation/bottom-tabs|@react-navigation/native|axios|@react-navigation/native-stack|jwt-decode|sweetalert|react-native-gesture-handler)"
+    ]
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.15.14",
@@ -31,7 +38,9 @@
     "sweetalert": "^2.1.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.12.9",
+    "jest-expo": "^43.0.1",
+    "react-test-renderer": "^17.0.1"
   },
   "private": true
 }

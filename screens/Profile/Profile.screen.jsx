@@ -33,8 +33,8 @@ console.log(user);
           alert('Sorry, we need camera roll permissions to make this work!');
         }
       }
+      setUserImage(`${urlBack}/imagen?ruta=personas&img=${user.strImg}`)
     })();
-    setUserImage(`${urlBack}/imagen?ruta=personas&img=${user.strImg}`)
   }, []);
 
   const pickImage = async () => {
@@ -52,7 +52,13 @@ console.log(user);
     if (!result.cancelled) {
       let uploadUri = Platform.OS === 'ios' ? result.uri.replace('file://', '') : result.uri;
       let imageName = uploadUri.substring(uploadUri.lastIndexOf('/') + 1); 
-      
+      let match = /\.(\w+)$/.exec(imageName);
+  let type = match ? `image/${match[1]}` : `image`;
+await uploadPhoto({
+    uri: uploadUri,
+    name: imageName,
+    type
+})
 
     }
     } catch (error) {
@@ -78,23 +84,12 @@ console.log(user);
       let uploadUri = Platform.OS === 'ios' ? result.uri.replace('file://', '') : result.uri;
       let imageName = uploadUri.substring(uploadUri.lastIndexOf('/') + 1);
         try {
-    //   const blob = await new Promise((resolve, reject) => {
-    //   const xhr = new XMLHttpRequest();
-    //   xhr.onload = function () {
-    //     resolve(xhr.response);
-    //   };
-    //   xhr.onerror = function (e) {
-    //     console.log(e);
-    //     reject(new TypeError("Network request failed"));
-    //   };
-    //   xhr.responseType = "blob";
-    //   xhr.open("GET", uploadUri, true);
-    //   xhr.send(null);
-    // });
+    let match = /\.(\w+)$/.exec(imageName);
+  let type = match ? `image/${match[1]}` : `image`;
 await uploadPhoto({
     uri: uploadUri,
     name: imageName,
-    type: result.type
+    type
 })
     } catch (error) {
       console.log(error);
@@ -120,12 +115,15 @@ const uploadPhoto = async (img) => {
     let formData = new FormData();
     formData.append("archivo", img, img.name);
     console.log(formData);
-await axios.put(`${urlBack}/carga/?ruta=personas&id=${user._id}`, formData).then(res => {
+    console.log('url', `${urlBack}/carga/?ruta=personas&id=${user._id}`)
+  axios.put(`${urlBack}/carga/?ruta=personas&id=${user._id}`, formData)
+    .then(res => {
 Toast.show("Image upload correctly!", {
       duration: Toast.durations.SHORT,
       position: Toast.positions.TOP,
       containerStyle: { marginTop: 50 },
     });
+    setUserImage(img.uri);
     console.log(res);
                     }).catch(err => {
                         console.log(err);
