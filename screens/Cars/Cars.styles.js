@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import { colors } from "../../styles/colors.styles";
 
 let width = (Dimensions.get('window').width - 20);
-console.log(width);
+
 const Container = styled.SafeAreaView`
     flex: 1;
     align-items: center;
@@ -94,20 +94,24 @@ const LabelColor = styled.Text`
 const ModalContainer = styled.View`
     flex: 1;
     justify-content: center;
+    box-shadow: 1px 2px 15px #a3a3a3;
+
 `;
 
 const ModalView = styled.View`
     margin: 20px;
     background-color: ${colors.white};
-     box-shadow: 1px 2px 15px #a3a3a3;
-    border-radius: 15px;
+    box-shadow: 1px 2px 15px #a3a3a3;
+        border-radius: 15px;
     padding: 35px;
     align-items: center;
+    max-height: 60%
 `;
 
 const CloseButton = styled.Pressable`
     background-color: ${colors.primary};
     border-radius: 10px;
+    align-items: center;
     padding: 10px;
 `;
 
