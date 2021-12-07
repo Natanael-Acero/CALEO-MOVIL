@@ -64,9 +64,34 @@ const AddButton = styled.TouchableOpacity`
 
 const Label = styled.Text`
   align-items: center;
-  font-size: 25px;
+  font-size: 14px;
   color: ${colors.black};
   padding:5px;
 `;
 
-export { Container, CarList, Card, Car, InfoButton, AddButtonContainer, AddButton, Label, Image }
+const ModalContainer = styled.View`
+    flex: 1;
+    justify-content: center;
+`;
+
+const ModalView = styled.View`
+    margin: 20px;
+    background-color: ${colors.white};
+     box-shadow: 1px 2px 15px #a3a3a3;
+    border-radius: 15px;
+    padding: 35px;
+    align-items: center;
+`;
+
+const CloseButton = styled.Pressable`
+    background-color: ${colors.primary};
+    border-radius: 10px;
+    padding: 10px;
+`;
+
+const ModalText = styled.Text`
+    margin-bottom: 15px;
+    text-align: center;
+`;
+
+export { ModalText, CloseButton, Container, CarList, Card, Car, InfoButton, AddButtonContainer, AddButton, Label, Image, ModalContainer, ModalView }
