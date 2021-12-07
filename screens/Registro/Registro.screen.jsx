@@ -4,7 +4,7 @@ import { useNavigation } from "@react-navigation/core";
 import { urlBack } from '../../environments/environments.url';
 import { StyledInput, LogoImage, PressableButton } from '../Login/Login.styles';
 import { RegistroService } from '../../services/Auth/RegistroService';
-
+import i18n from ".localization/i18n"
 export const Registro = () => {
 
     const navigation = useNavigation();
@@ -72,50 +72,50 @@ export const Registro = () => {
                     :
                     <View>
                         <StyledInput
-                            placeholder="Name"
+                            placeholder={i18n.t("name")}
                             value={usuario.strNombre}
                             onChangeText={(text) => handleInputChange({ strNombre: text })}
 
                         />
                         <StyledInput
-                            placeholder="Primer Apellido"
+                            placeholder={i18n.t("primerApellido")}
                             value={usuario.strPrimerApellido}
                             onChangeText={(text) => handleInputChange({ strPrimerApellido: text })}
 
                         />
                         <StyledInput
-                            placeholder="Segundo Apellido"
+                            placeholder={i18n.t("segundoApellido")}
                             value={usuario.strSegundoApellido}
                             onChangeText={(text) => handleInputChange({ strSegundoApellido: text })}
 
                         />
                         <StyledInput
-                            placeholder="Teléfono"
+                            placeholder={i18n.t("telefono")}
                             keyboardType="numeric"
                             value={usuario.nmbTelefono}
                             onChangeText={(text) => handleInputChange({ nmbTelefono: text })}
 
                         />
                         <StyledInput
-                            placeholder="Dirección"
+                            placeholder={i18n.t("direccion")}
                             value={usuario.strDireccion}
                             onChangeText={(text) => handleInputChange({ strDireccion: text })}
 
                         />
                         <StyledInput
-                            placeholder="Email"
+                            placeholder={i18n.t("email")}
                             value={usuario.strCorreo}
                             onChangeText={(text) => handleInputChange({ strCorreo: text })}
 
                         />
                         <StyledInput
-                            placeholder="Password"
+                            placeholder={i18n.t("password")}
                             secureTextEntry={true}
                             value={usuario.strContrasena}
                             onChangeText={(text) => handleInputChange({ strContrasena: text })}
                         />
 
-                        <PressableButton title="Register" color="darkorange" bgColor="white" onPress={handleRegister} />
+                        <PressableButton title={i18n.t("register")} color="darkorange" bgColor="white" onPress={handleRegister} />
 
                     </View>
             }
