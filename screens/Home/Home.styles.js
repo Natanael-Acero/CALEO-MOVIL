@@ -21,16 +21,16 @@ const TaskList = styled.FlatList`
 `;
 
 const Card = styled.View`
-    flex-direction: row;
+    
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     width: ${Math.round(width)}px;
     border-radius: 15px;
     background-color: ${colors.white} ;
-    padding: 0;
-    margin: 5px;
+    margin: 2%;
+    padding: 3%;
     box-shadow: 1px 1px 2px #cfcfcf;
-    text-align: center;
+    width: 95%;
 `;
 
 
@@ -87,6 +87,15 @@ const SearchInput = styled.TextInput`
   width: 80%;
   background-color: ${colors.background};
 `;
+const LabelText = styled.Text`
+  text-align: center;
+  font-size: 20px;
+  color: ${colors.black};
+  border: solid 1px;
+  border-radius: 10px;
+  padding: 3%;
+  margin-bottom: 8%;
+`;
 
 
 const Label = styled.Text`
@@ -106,6 +115,12 @@ const ButtonContainer = styled.TouchableOpacity`
         background-color: orange;
         
 `;
+const ButtonDelete = styled.TouchableOpacity`
+        margin-top: 7%;
+        position: absolute;
+        right: 1%;
+        font-size: 25px; 
+`;
 
 
 
@@ -115,5 +130,6 @@ export {
     Container, TaskList, Card, Task,
     TaskStatusButton, DeleteButton, AddButtonContainer,
     AddButton, Input, Label, SearchInput,
-    ContainerRe, ButtonContainer
+    ContainerRe, ButtonContainer, ButtonDelete,
+    LabelText
 }

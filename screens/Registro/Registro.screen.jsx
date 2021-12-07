@@ -33,6 +33,7 @@ export const Registro = () => {
         setCargando(true);
 
         try {
+            console.log(usuario);
             await RegistroService(usuario).then((response) => {
                 Alert.alert('Registro Exitoso', response.data.msg)
                 setCargando(false);
@@ -48,6 +49,7 @@ export const Registro = () => {
                 });
             })
                 .catch((error) => {
+                    console.log(error.response);
                     setCargando(false);
                     Alert.alert('Error al registrar cuenta', error.response ? error.response.data.msg : 'Error al registrar al usuario')
                 })
