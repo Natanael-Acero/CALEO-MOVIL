@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { ActivityIndicator, View, Alert, KeyboardAvoidingView } from 'react-native';
 import { useNavigation } from "@react-navigation/core";
-import { urlBack } from '../../environments/environments.url';
 import { StyledInput, LogoImage, PressableButton } from '../Login/Login.styles';
 import { RegistroService } from '../../services/Auth/RegistroService';
 
@@ -37,6 +36,7 @@ export const Registro = () => {
         setCargando(true);
 
         try {
+            console.log(usuario);
             await RegistroService(usuario).then((response) => {
                 Alert.alert('Registro Exitoso', response.data.msg)
                 setCargando(false);
@@ -55,6 +55,7 @@ export const Registro = () => {
                 });
             })
                 .catch((error) => {
+                    console.log(error.response);
                     setCargando(false);
                     Alert.alert('Error al registrar cuenta', error.response ? error.response.data.msg : 'Error al registrar al usuario')
                 })
