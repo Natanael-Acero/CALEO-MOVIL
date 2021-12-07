@@ -18,6 +18,9 @@ export const Registro = () => {
         strSegundoApellido: '',
         strCorreo: '',
         strContrasena: '',
+        strPais: 'MX',
+        strEstado: 'Aguascalientes',
+        idEstado: '',
         nmbTelefono: null,
         strDireccion: ''
     });
@@ -42,9 +45,12 @@ export const Registro = () => {
                     strNombre: '',
                     strPrimerApellido: '',
                     strSegundoApellido: '',
-                    strEmail: '',
-                    strPassword: '',
-                    strTelefono: '',
+                    strCorreo: '',
+                    strContrasena: '',
+                    strPais: 'MX',
+                    strEstado: 'Aguascalientes',
+                    idEstado: '',
+                    nmbTelefono: null,
                     strDireccion: ''
                 });
             })
