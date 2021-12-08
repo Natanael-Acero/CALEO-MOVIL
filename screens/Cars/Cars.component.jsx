@@ -15,13 +15,15 @@ import {
     CloseButton,
     ModalText
 } from "./Cars.styles";
-import { Modal } from "react-native";
+import { Alert, Modal, TouchableOpacity } from "react-native";
 import { colors } from "../../styles/colors.styles";
 import { urlBack } from '../../environments/environments.url';
 import { useNavigation } from "@react-navigation/core";
+import Toast from 'react-native-root-toast';
+import axios from 'axios';
 
 
-export const CarsComponent = ({ setCars, cars }) => {
+export const CarsComponent = ({ setCars, cars , getCars}) => {
     const navigation = useNavigation();
     const [modalVisible, setModalVisible] = useState(false);
     const [carInfo, setCarInfo] = useState({});
@@ -31,6 +33,53 @@ export const CarsComponent = ({ setCars, cars }) => {
         setModalVisible(modalVisible);
     }
 
+    const options = (idCar) => {
+        Alert.alert("Options", "Do you want to do with this car?",[
+            {
+                text: "Edit",
+                onPress: () => alert("Edit"+ idCar ),
+                style: "default"
+            },
+            {
+                text: "Remove",
+                onPress: () => removeCar(idCar),
+                style: "default"
+            }
+        ])
+    }
+
+    const removeCar = (idCar) => {
+        Alert.alert("Remove a car", "Are you sure you want to remove this car?",[
+            {
+                text: "Cancel",
+                onDismiss: () => console.log("Canceled"),
+                style: "cancel"
+            },
+            {
+                text: "Confirm",
+                onPress: () => {
+                    axios.delete(`${urlBack}/vehiculo/${idCar}/false`).then(resp => {
+                        Toast.show("Car removed correclty!", {
+            duration: Toast.durations.SHORT,
+            position: Toast.positions.TOP,
+            containerStyle: { marginTop: 50 },
+          });
+                getCars();
+          console.log(resp);
+                    }).catch(err => {
+                        Toast.show("An error has ocurred!", {
+            duration: Toast.durations.SHORT,
+            position: Toast.positions.TOP,
+            containerStyle: { marginTop: 50 },
+          });
+          console.log(err.response);
+                    });
+                },
+                style: "confirm"
+            }
+            
+        ])
+    }
     const handleAdd = () => {
         navigation.navigate('RegistroAuto')
     }
@@ -41,9 +90,9 @@ export const CarsComponent = ({ setCars, cars }) => {
                 <CarList
                     data={cars}
                     numColumns={1}
-                    keyExtractor={(item) => item._id}
                     renderItem={({ item }) => {
                         return (
+                            <TouchableOpacity onLongPress={() => options(item._id)}>
                             <Card>
                                 <Image
                                     source={{
@@ -55,8 +104,11 @@ export const CarsComponent = ({ setCars, cars }) => {
                                     <Ionicons name="information-circle" size={30} color={colors.success} />
                                 </InfoButton>
                             </Card>
+                            </TouchableOpacity>
                         );
                     }}
+                    keyExtractor={(item) => item._id}
+                    
                 />
             ) : (
                 <Label>No cars found :(</Label>
