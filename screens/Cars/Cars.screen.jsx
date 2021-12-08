@@ -20,7 +20,8 @@ export const Cars = ({ user }) => {
             .then(async (res) => {
                 let vehiculos = res.data.cont.getVehiculos;
                 const carrosFilter = await vehiculos.filter(vehi => vehi.idPersona === user._id)
-                setCars(carrosFilter);
+                await setCars(carrosFilter);
+                // console.log(cars)
             }).catch((err) => {
                 console.log(err, 'err');
             })
@@ -40,11 +41,15 @@ export const Cars = ({ user }) => {
                 }} >
                     {() => <CarsComponent setCars={setCars} cars={cars} />}
                 </Stack.Screen>
-                <Stack.Screen name="RegistroAuto" component={CarRegister} options={{
-                    headerShown: true,
-                    headerTitle: 'Car Register',
-                    headerStyle: { backgroundColor: colors.primary }
-                }} />
+
+                <Stack.Screen name="RegistroAuto"
+                    options={{
+                        headerShown: true,
+                        headerTitle: 'Car Register',
+                        headerStyle: { backgroundColor: colors.primary }
+                    }}>
+                    {() => <CarRegister user={user} getCars={handleGetCars} />}
+                </Stack.Screen>
                 {/* <Stack.Screen name="Home" options={{ headerShown: false }}>
                     {() => <TabsComponent user={user} />}
                 </Stack.Screen> */}

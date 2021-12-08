@@ -15,28 +15,56 @@ import {
     DrawerButton,
     DrawerText
 } from "./Cars.styles";
+import axios from 'axios';
 import { ColorPicker, fromHsv } from 'react-native-color-picker'
+import { Keyboard } from "react-native";
 
-export const CarRegister = () => {
+export const CarRegister = ({ user, getCars }) => {
 
     const modalizeRef = useRef(null);
 
+    const navigation = useNavigation();
+
+    const [cargando, setCargando] = useState(false)
+
     const [modalVisible, setModalVisible] = useState(false);
+
+    const [file, setFile] = useState({});
+
+    const [cajones, setCajones] = useState([]);
 
     const [newCar, setNewCar] = useState({
         strMarca: '',
         strModelo: '',
         strDescripcion: '',
-        nmbAnio: '',
+        nmbAño: '',
+        strImg: [],
         strPlacas: '',
-        strColor: '#fff',
-        idPersona: '',
-        idCajon: ''
+        strColor: '#F12',
+        idPersona: user._id,
+        idCajon: cajones.length > 0 ? cajones[0]._id : undefined
     });
 
     const onOpen = () => {
+        Keyboard.dismiss();
         modalizeRef.current.open();
     };
+
+    const getCajon = async () => {
+        await axios.get(`${urlBack}/cajon`)
+            .then(async (res) => {
+                let cajones = res.data.cont.cajon;
+                let cajonesLibres = cajones.filter((cajon) => cajon.blnRentado != true)
+                if (cajonesLibres.length <= 0) {
+                    Alert.alert('Lo sentimos, por el momento no contamos con cajónes disponibles.')
+                    navigation.navigate("CarsComponent");
+                }
+                await setCajones(cajonesLibres);
+                setNewCar({ ...newCar, idCajon: cajonesLibres[0]._id })
+            }).catch((err) => {
+                console.log(err, 'err');
+            })
+    }
 
     const pickImage = async () => {
         try {
@@ -53,11 +81,11 @@ export const CarRegister = () => {
                 let imageName = uploadUri.substring(uploadUri.lastIndexOf('/') + 1);
                 let match = /\.(\w+)$/.exec(imageName);
                 let type = match ? `image/${match[1]}` : `image`;
-                // await uploadPhoto({
-                //     uri: uploadUri,
-                //     name: imageName,
-                //     type
-                // })
+                await setFile({
+                    uri: uploadUri,
+                    name: imageName,
+                    type
+                })
 
             }
         } catch (error) {
@@ -78,14 +106,34 @@ export const CarRegister = () => {
     }
 
     const handleAddColor = () => {
+        Keyboard.dismiss();
         setModalVisible(!modalVisible);
     }
 
     const handleRegister = async (e) => {
         e.preventDefault();
-
+        setCargando(true);
+        Keyboard.dismiss();
         try {
-            console.log(newCar);
+            await axios.post(`${urlBack}/vehiculo`, newCar).then(async (response) => {
+                Alert.alert('Registro Exitoso', response.data.msg)
+                const idAuto = response.data.cont.autos._id;
+                let formData = new FormData();
+                formData.append("archivo", file, file.name);
+
+                await axios.put(`${urlBack}/carga/?ruta=vehiculos&id=${idAuto}`, formData)
+                    .then(res => {
+                        setCargando(false);
+                    }).catch(error => {
+                        console.log(error, 'errorIMG');
+                    })
+                await getCars();
+                navigation.navigate("CarsComponent");
+            }).catch((error) => {
+                console.log(error, 'errorGEN')
+                setCargando(false);
+                Alert.alert('Error al registrar el vehiculo', error.response ? error.response.data.msg : 'Error al registrar el vehiculo')
+            })
         } catch (error) {
             Alert.alert('Error', error.response.data.msg);
         }
@@ -101,7 +149,6 @@ export const CarRegister = () => {
                     alert('Sorry, we need camera roll permissions to make this work!');
                 }
             }
-            setUserImage(`${urlBack}/imagen?ruta=personas&img=${user.strImg}`);
         })();
     }, []);
 
@@ -121,11 +168,12 @@ export const CarRegister = () => {
                 try {
                     let match = /\.(\w+)$/.exec(imageName);
                     let type = match ? `image/${match[1]}` : `image`;
-                    // await uploadPhoto({
-                    //     uri: uploadUri,
-                    //     name: imageName,
-                    //     type
-                    // })
+                    await setFile({
+                        uri: uploadUri,
+                        name: imageName,
+                        type
+                    })
+
                 } catch (error) {
                     console.log(error);
                     Toast.show("An error has ocurred!", {
@@ -145,12 +193,12 @@ export const CarRegister = () => {
         }
     }
 
-
+    useEffect(() => {
+        getCajon();
+    }, [])
 
     return (
         <Container>
-
-
             <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
                 style={{ flex: 1, alignItems: "center", marginTop: 5 }}>
                 {
@@ -205,8 +253,8 @@ export const CarRegister = () => {
                             <StyledInput
                                 placeholder="Año"
                                 keyboardType="numeric"
-                                value={newCar.nmbAnio}
-                                onChangeText={(text) => handleInputChange({ nmbAnio: text })}
+                                value={newCar.nmbAño}
+                                onChangeText={(text) => handleInputChange({ nmbAño: text })}
 
                             />
                             <StyledInput
