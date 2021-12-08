@@ -18,6 +18,7 @@ import {
 import axios from 'axios';
 import { ColorPicker, fromHsv } from 'react-native-color-picker'
 import { Keyboard } from "react-native";
+import i18n from "../../localization/i18n";
 
 export const CarUpdate = ({ user, updateCar, setUpdateCar, getCars }) => {
 
@@ -75,7 +76,7 @@ export const CarUpdate = ({ user, updateCar, setUpdateCar, getCars }) => {
             }
         } catch (error) {
             console.error(error);
-            Toast.show("An error has ocurred!", {
+            Toast.show(i18n.t("alertProfileErr"), {
                 duration: Toast.durations.SHORT,
                 position: Toast.positions.TOP,
                 containerStyle: { marginTop: 50 },
@@ -102,7 +103,7 @@ export const CarUpdate = ({ user, updateCar, setUpdateCar, getCars }) => {
         console.log(newCar)
         try {
             await axios.put(`${urlBack}/vehiculo`, newCar).then(async (response) => {
-                Alert.alert('Actualización exitosa', response.data.msg)
+                Alert.alert(i18n.t("put"), response.data.msg)
                 const idAuto = newCar._id;
 
                 setUpdateCar({});
@@ -125,7 +126,7 @@ export const CarUpdate = ({ user, updateCar, setUpdateCar, getCars }) => {
                 getCars()
                 console.log(error, 'errorGEN')
                 setCargando(false);
-                Alert.alert('Error al registrar el vehiculo', error.response ? error.response.data.msg : 'Error al registrar el vehiculo')
+                Alert.alert(i18n.t("alerErrorCarRegister"), error.response ? error.response.data.msg : i18n.t("alerErrorCarRegister"))
             })
         } catch (error) {
             Alert.alert('Error', error.response.data.msg);
@@ -139,7 +140,7 @@ export const CarUpdate = ({ user, updateCar, setUpdateCar, getCars }) => {
                 await ImagePicker.requestCameraPermissionsAsync();
 
                 if (status !== 'granted') {
-                    alert('Sorry, we need camera roll permissions to make this work!');
+                    alert(i18n.t("alerErrorCam"));
                 }
             }
         })();
@@ -169,7 +170,7 @@ export const CarUpdate = ({ user, updateCar, setUpdateCar, getCars }) => {
 
                 } catch (error) {
                     console.log(error);
-                    Toast.show("An error has ocurred!", {
+                    Toast.show(i18n.t("alertProfileErr"), {
                         duration: Toast.durations.SHORT,
                         position: Toast.positions.TOP,
                         containerStyle: { marginTop: 50 },
@@ -178,7 +179,7 @@ export const CarUpdate = ({ user, updateCar, setUpdateCar, getCars }) => {
             }
         } catch (error) {
             console.error(error);
-            Toast.show("An error has ocurred!", {
+            Toast.show(i18n.t("alertProfileErr"), {
                 duration: Toast.durations.SHORT,
                 position: Toast.positions.TOP,
                 containerStyle: { marginTop: 50 },
@@ -211,7 +212,7 @@ export const CarUpdate = ({ user, updateCar, setUpdateCar, getCars }) => {
                                             hideSliders={false}
                                         />
                                         <CloseButton onPress={() => setModalVisible(!modalVisible)}>
-                                            <Label>Cerrar</Label>
+                                            <Label>{i18n.t("cerrar")}</Label>
                                         </CloseButton>
                                     </View>
 
@@ -223,44 +224,44 @@ export const CarUpdate = ({ user, updateCar, setUpdateCar, getCars }) => {
                     ) : (
                         <View>
                             <StyledInput
-                                placeholder="Marca"
+                                placeholder={i18n.t("marca")}
                                 value={newCar.strMarca}
                                 onChangeText={(text) => handleInputChange({ strMarca: text })}
 
                             />
                             <StyledInput
-                                placeholder="Modelo"
+                                placeholder={i18n.t("modelo")}
                                 value={newCar.strModelo}
                                 onChangeText={(text) => handleInputChange({ strModelo: text })}
 
                             />
                             <StyledInput
-                                placeholder="Descripción"
+                                placeholder={i18n.t("Descripcion")}
                                 value={newCar.strDescripcion}
                                 onChangeText={(text) => handleInputChange({ strDescripcion: text })}
 
                             />
                             <StyledInput
-                                placeholder="Año"
+                                placeholder={i18n.t("year")}
                                 keyboardType="numeric"
                                 value={newCar.nmbAño}
                                 onChangeText={(text) => handleInputChange({ nmbAño: text })}
                             />
                             <StyledInput
-                                placeholder="Placas"
+                                placeholder={i18n.t("placas")}
                                 value={newCar.strPlacas}
                                 onChangeText={(text) => handleInputChange({ strPlacas: text })}
                             />
-                            <PressableButton title="Change Color" color="darkorange" bgColor="white" onPress={handleAddColor} />
-                            <PressableButton title="Add Image" color="darkorange" bgColor="white" onPress={onOpen} />
-                            <PressableButton title="Update" color="white" bgColor="darkorange" onPress={handleUpdate} />
+                            <PressableButton title={i18n.t("putColor")} color="darkorange" bgColor="white" onPress={handleAddColor} />
+                            <PressableButton title={i18n.t("img")}  color="darkorange" bgColor="white" onPress={onOpen} />
+                            <PressableButton title={i18n.t("update")} color="white" bgColor="darkorange" onPress={handleUpdate} />
                         </View>
                     )
                 }
             </KeyboardAvoidingView>
             <Modalize ref={modalizeRef} modalHeight={150} >
-                <DrawerButton onPress={pickImage}><DrawerText><Ionicons name="cloud-upload-outline" size={30} color='black' /> Upload Image</DrawerText></DrawerButton>
-                <DrawerButton onPress={takePicture}><DrawerText><Ionicons name="camera-outline" size={30} color='black' /> Take photo</DrawerText></DrawerButton>
+                <DrawerButton onPress={pickImage}><DrawerText><Ionicons name="cloud-upload-outline" size={30} color='black' />{i18n.t("uploadimage")}</DrawerText></DrawerButton>
+                <DrawerButton onPress={takePicture}><DrawerText><Ionicons name="camera-outline" size={30} color='black' />{i18n.t("takephoto")}</DrawerText></DrawerButton>
             </Modalize>
         </Container>
     )

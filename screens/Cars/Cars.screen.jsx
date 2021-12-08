@@ -8,6 +8,7 @@ import { urlBack } from '../../environments/environments.url';
 import { CarRegister } from './CarRegister.component';
 import { colors } from '../../styles/colors.styles';
 import { CarUpdate } from './CarUpdate.component';
+import i18n from "../../localization/i18n";
 
 const Stack = createNativeStackNavigator();
 
@@ -38,7 +39,7 @@ export const Cars = ({ user }) => {
         <NavigationContainer independent={true}>
             <Stack.Navigator initialRouteName='CarsComponent'>
                 <Stack.Screen name="CarsComponent" options={{
-                    headerTitle: 'My Cars',
+                    headerTitle: i18n.t("mycar"),
                     headerShown: true,
                     headerStyle: { backgroundColor: colors.primary },
                 }} >
@@ -55,7 +56,7 @@ export const Cars = ({ user }) => {
                 </Stack.Screen>
                 <Stack.Screen name="ActualizarAuto" options={{
                     headerShown: true,
-                    headerTitle: 'Update Car',
+                    headerTitle: i18n.t("updatecar"),
                     headerStyle: { backgroundColor: colors.primary }
                 }}>
                     {() => <CarUpdate user={user} updateCar={updateCar} setUpdateCar={setUpdateCar} getCars={handleGetCars} />}

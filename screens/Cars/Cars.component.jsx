@@ -21,6 +21,7 @@ import { urlBack } from '../../environments/environments.url';
 import { useNavigation } from "@react-navigation/core";
 import Toast from 'react-native-root-toast';
 import axios from 'axios';
+import i18n from "../../localization/i18n";
 
 
 export const CarsComponent = ({ setCars, cars, getCars, updateCar }) => {
@@ -34,19 +35,19 @@ export const CarsComponent = ({ setCars, cars, getCars, updateCar }) => {
     }
 
     const options = (car) => {
-        Alert.alert("Options", "Do you want to do with this car?", [
+        Alert.alert(i18n.t("options"), i18n.t("doyou"), [
             {
-                text: "Cancel",
+                text: i18n.t("cancel"),
                 onDismiss: () => console.log('cancel'),
                 style: "cancel"
             },
             {
-                text: "Edit",
+                text: i18n.t("edit"),
                 onPress: () => handleUpdate(car),
                 style: "default"
             },
             {
-                text: "Remove",
+                text: i18n.t("remove"),
                 onPress: () => removeCar(car._id),
                 style: "default"
             }
@@ -60,17 +61,17 @@ export const CarsComponent = ({ setCars, cars, getCars, updateCar }) => {
     }
 
     const removeCar = (idCar) => {
-        Alert.alert("Remove a car", "Are you sure you want to remove this car?", [
+        Alert.alert(i18n.t("removeCar"), i18n.t("seguro"), [
             {
-                text: "Cancel",
+                text: i18n.t("cancel"),
                 onDismiss: () => console.log("Canceled"),
                 style: "cancel"
             },
             {
-                text: "Confirm",
+                text: i18n.t("confirm"),
                 onPress: () => {
                     axios.delete(`${urlBack}/vehiculo/${idCar}/false`).then(resp => {
-                        Toast.show("Car removed correclty!", {
+                        Toast.show(i18n.t("caremove"), {
                             duration: Toast.durations.SHORT,
                             position: Toast.positions.TOP,
                             containerStyle: { marginTop: 50 },
@@ -78,7 +79,7 @@ export const CarsComponent = ({ setCars, cars, getCars, updateCar }) => {
                         getCars();
                         console.log(resp);
                     }).catch(err => {
-                        Toast.show("An error has ocurred!", {
+                        Toast.show(i18n.t("alertProfileErr"), {
                             duration: Toast.durations.SHORT,
                             position: Toast.positions.TOP,
                             containerStyle: { marginTop: 50 },
@@ -122,7 +123,7 @@ export const CarsComponent = ({ setCars, cars, getCars, updateCar }) => {
 
                 />
             ) : (
-                <Label>No cars found :(</Label>
+                <Label>{i18n.t("nocarsfound")}(</Label>
             )}
 
             <AddButtonContainer
@@ -143,12 +144,12 @@ export const CarsComponent = ({ setCars, cars, getCars, updateCar }) => {
             >
                 <ModalContainer>
                     <ModalView >
-                        <ModalText>Descripción: {carInfo.strDescripcion}</ModalText>
-                        <ModalText>Placas: {carInfo.strPlacas}</ModalText>
-                        <ModalText>Cajón asignado: {carInfo.cajon ? carInfo.cajon[0].nmbCajon : 'N/A'}</ModalText>
-                        <ModalText>Estatus: {carInfo.cajon ? (carInfo.cajon[0].blnRentado ? 'Vigente' : 'Pago pendiente') : ''}</ModalText>
+                        <ModalText>{i18n.t("Descripcion")} {carInfo.strDescripcion}</ModalText>
+                        <ModalText>{i18n.t("placas")} {carInfo.strPlacas}</ModalText>
+                        <ModalText>{i18n.t("cajon")} {carInfo.cajon ? carInfo.cajon[0].nmbCajon : 'N/A'}</ModalText>
+                        <ModalText>{i18n.t("estatus")} {carInfo.cajon ? (carInfo.cajon[0].blnRentado ? 'Vigente' : 'Pago pendiente') : ''}</ModalText>
                         <CloseButton onPress={() => handleInfo({}, false)}>
-                            <Label>Cerrar</Label>
+                            <Label>{i18n.t("cerrar")}</Label>
                         </CloseButton>
                     </ModalView>
                 </ModalContainer>
