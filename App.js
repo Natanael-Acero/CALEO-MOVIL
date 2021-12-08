@@ -6,7 +6,7 @@ import { Login } from './screens/Login/Login.screen';
 import { Registro } from './screens/Registro/Registro.screen';
 import { TabsComponent } from './components/Tabs.component';
 import moment from 'moment';
-import i18n from "./localization/i18n";
+import i18n from './localization/i18n';
 moment.locale('es-mx')
 
 const Stack = createNativeStackNavigator();

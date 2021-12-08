@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { colors } from '../styles/colors.styles';
 import { Profile } from '../screens/Profile/Profile.screen';
 import { Cars } from '../screens/Cars/Cars.screen';
-
+import i18n from '../localization/i18n';
 
 const Tab = createBottomTabNavigator();
 
