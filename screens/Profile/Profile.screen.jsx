@@ -12,8 +12,6 @@ import { urlBack } from '../../environments/environments.url';
 import axios from 'axios';
 export const Profile = ({ user }) => {
   const modalizeRef = useRef(null);
-  console.log(user);
-
   const navigation = useNavigation();
   const [userImage, setUserImage] = useState('')
   const [image, setImage] = useState('')
@@ -48,9 +46,6 @@ export const Profile = ({ user }) => {
         quality: 1,
         base64: true
       });
-
-      console.log(result);
-
       if (!result.cancelled) {
         let uploadUri = Platform.OS === 'ios' ? result.uri.replace('file://', '') : result.uri;
         let imageName = uploadUri.substring(uploadUri.lastIndexOf('/') + 1);
@@ -82,7 +77,6 @@ export const Profile = ({ user }) => {
         quality: 1,
       });
       if (!result.cancelled) {
-        console.log(result);
         let uploadUri = Platform.OS === 'ios' ? result.uri.replace('file://', '') : result.uri;
         let imageName = uploadUri.substring(uploadUri.lastIndexOf('/') + 1);
         try {
@@ -103,7 +97,6 @@ export const Profile = ({ user }) => {
         }
       }
     } catch (error) {
-      console.error(error);
       Toast.show("An error has ocurred!", {
         duration: Toast.durations.SHORT,
         position: Toast.positions.TOP,
@@ -116,8 +109,6 @@ export const Profile = ({ user }) => {
   const uploadPhoto = async (img) => {
     let formData = new FormData();
     formData.append("archivo", img, img.name);
-    console.log(formData);
-    console.log('url', `${urlBack}/carga/?ruta=personas&id=${user._id}`)
     axios.put(`${urlBack}/carga/?ruta=personas&id=${user._id}`, formData)
       .then(res => {
         Toast.show("Image upload correctly!", {
@@ -128,7 +119,7 @@ export const Profile = ({ user }) => {
         setUserImage(img.uri);
         console.log(res);
       }).catch(err => {
-        console.log(err);
+        console.log(err.response);
         Toast.show("An error has ocurred!", {
           duration: Toast.durations.SHORT,
           position: Toast.positions.TOP,

@@ -1,8 +1,11 @@
 import React, { useEffect, useState, useCallback } from 'react'
-import { Modal, View, Text, Pressable, StyleSheet, RefreshControl, ScrollView } from 'react-native'
+import { Modal, Text, RefreshControl } from 'react-native'
 import { Ionicons } from "@expo/vector-icons";
-import { SearchInput, ContainerRe, ButtonContainer, Label, Card, ButtonDelete, LabelText } from './Home.styles'
-import { StyledInput } from '../Login/Login.styles'
+import {
+    SearchInput, ContainerRe, ButtonContainer,
+    Label, Card, ButtonDelete, LabelText, ViewClose, CenteredView, ModalView, ScrollView,
+    PressiableButton, ButtonEliminar, TextStyle, TextView, ButtonSucces, ButtonSuccess
+} from './Home.styles'
 import { colors } from "../../styles/colors.styles";
 import { UsuarioService } from '../../services/Usuario/UsuarioService'
 import { useNavigation } from "@react-navigation/core";
@@ -87,7 +90,6 @@ export const Home = (userData) => {
                 <Label>+</Label>
             </ButtonContainer>
             <ScrollView
-                contentContainerStyle={styles.scrollView}
                 refreshControl={
                     <RefreshControl
                         refreshing={refreshing}
@@ -95,14 +97,13 @@ export const Home = (userData) => {
                     />
                 }
             >
-
                 <Modal
                     animationType="slide"
                     transparent={true}
                     visible={modalVisible}
                 >
-                    <View style={styles.centeredView}>
-                        <View style={styles.modalView}>
+                    <CenteredView >
+                        <ModalView >
                             <Text style={{ textAlign: 'left' }}>N° de Cajón:</Text>
                             <LabelText>
                                 <Text style={{ fontWeight: 'bold' }}>
@@ -118,101 +119,51 @@ export const Home = (userData) => {
                             <Text style={{ textAlign: 'left' }}>Fecha de registro:</Text>
                             <LabelText>
                                 <Text>
-                                    {moment(descripcion.created_at).format('LL')}
+                                    {moment(descripcion.created_at).format('LLL')}
                                 </Text>
                             </LabelText>
-                            <View style={styles.viewClose}>
-                                <Pressable
-                                    style={[styles.button, styles.buttonClose]}
+                            <ViewClose>
+                                <PressiableButton
                                     onPressIn={() => setModalVisible(!modalVisible)}
                                 >
-                                    <Text style={styles.textStyle}>Cerrar</Text>
-                                </Pressable>
-                            </View>
-                        </View>
-                    </View>
+                                    <TextStyle >Cerrar</TextStyle>
+                                </PressiableButton>
+                            </ViewClose>
+                        </ModalView>
+                    </CenteredView>
                 </Modal>
-
                 {
-                    cajones.map(cajon => {
-                        return (
-                            <Card key={cajon.cajon._id}>
-                                <Text style={styles.text} key={cajon.cajon._id} >N° de Cajon:{cajon.cajon.nmbCajon}</Text>
-                                <View style={styles.buttonEliminar}>
-                                    <ButtonDelete>
-                                        <Ionicons onPress={() => { registro(cajon.cajon) }} name="cog-outline" size={25} color={colors.tertiary} />
-                                    </ButtonDelete>
-                                </View>
-                            </Card>
-                        )
-                    })
+                    cajones.length > 0 ?
+
+                        cajones.map(cajon => {
+                            return (
+                                <Card key={cajon.cajon._id}>
+                                    <TextView key={cajon.cajon._id} >N° de Cajón:{cajon.cajon.nmbCajon}</TextView>
+                                    <ButtonEliminar >
+                                        <ButtonDelete>
+                                            <Ionicons onPress={() => { registro(cajon.cajon) }} name="cog-outline" size={25} color={colors.tertiary} />
+                                        </ButtonDelete>
+                                    </ButtonEliminar>
+                                </Card>
+                            )
+                        })
+
+                        :
+                        <Card>
+                            <TextView >
+                                No se encontrarón cajónes...
+                                <Ionicons name="sad-outline" size={20} color={colors.tertiary} />
+                            </TextView>
+                        </Card>
                 }
+
             </ScrollView>
         </ContainerRe>
     )
 
 }
 
-const styles = StyleSheet.create({
-    viewClose: {
-        padding: "10%",
-        alignItems: 'center'
-    },
-    centeredView: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-    },
-    modalView: {
-        width: 370,
-        height: "81%",
-        maxWidth: 370,
-        margin: 15,
-        backgroundColor: "white",
-        borderRadius: 20,
-        padding: 30,
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5
-    },
-    button: {
-        borderRadius: 20,
-        width: 200,
-        padding: 10,
-        elevation: 2
-    },
-    buttonClose: {
-        backgroundColor: `${colors.primary}`,
-        alignItems: 'center',
-    },
-    textStyle: {
-        color: "white",
-        fontWeight: "bold",
-        textAlign: "center"
-    },
-    text: {
-        textAlign: 'center',
-        color: "black",
-    },
-    modalText: {
-        marginBottom: 15,
-        textAlign: "center"
-    },
-    buttonEliminar: {
-        width: "30%",
-        position: 'absolute',
-        right: "5%",
-    },
-    scrollView: {
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});
+
 
 
 
