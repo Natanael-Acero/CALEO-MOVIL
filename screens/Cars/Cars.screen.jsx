@@ -58,7 +58,7 @@ export const Cars = ({ user }) => {
                     headerTitle: 'Update Car',
                     headerStyle: { backgroundColor: colors.primary }
                 }}>
-                    {() => <CarUpdate user={user} updateCar={updateCar} setUpdateCar={setUpdateCar} />}
+                    {() => <CarUpdate user={user} updateCar={updateCar} setUpdateCar={setUpdateCar} getCars={handleGetCars} />}
                 </Stack.Screen>
             </Stack.Navigator>
             <StatusBar style='auto' />
