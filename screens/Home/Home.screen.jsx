@@ -6,6 +6,7 @@ import { StyledInput } from '../Login/Login.styles'
 import { colors } from "../../styles/colors.styles";
 import { UsuarioService } from '../../services/Usuario/UsuarioService'
 import { useNavigation } from "@react-navigation/core";
+import i18n from "../../localization/i18n";
 import moment from 'moment';
 const wait = (timeout) => {
     return new Promise(resolve => setTimeout(resolve, timeout));
@@ -82,7 +83,7 @@ export const Home = (userData) => {
 
     return (
         <ContainerRe >
-            <SearchInput title="Text" placeholder="  Buscar..." value={textSearch} onChangeText={(text) => { filter(text) }} />
+            <SearchInput title={i18n.t("Text")} placeholder={i18n.t("Buscar"),'...'} value={textSearch} onChangeText={(text) => { filter(text) }} />
             <ButtonContainer disabled={false} onPress={() => { navigation.navigate("My cars"); }} >
                 <Label>+</Label>
             </ButtonContainer>
@@ -103,19 +104,19 @@ export const Home = (userData) => {
                 >
                     <View style={styles.centeredView}>
                         <View style={styles.modalView}>
-                            <Text style={{ textAlign: 'left' }}>N° de Cajón:</Text>
+                            <Text style={{ textAlign: 'left' }}>{i18n.t("Ndecajon")}</Text>
                             <LabelText>
                                 <Text style={{ fontWeight: 'bold' }}>
                                     {descripcion.nmbCajon}
                                 </Text>
                             </LabelText>
-                            <Text style={{ textAlign: 'left' }}>Descripción:</Text>
+                            <Text style={{ textAlign: 'left' }}>{i18n.t("Descripcion")}</Text>
                             <LabelText>
                                 <Text>
                                     {descripcion.strDescripcion}
                                 </Text>
                             </LabelText>
-                            <Text style={{ textAlign: 'left' }}>Fecha de registro:</Text>
+                            <Text style={{ textAlign: 'left' }}>{i18n.t("fechaderegistro")}</Text>
                             <LabelText>
                                 <Text>
                                     {moment(descripcion.created_at).format('LL')}
@@ -126,7 +127,7 @@ export const Home = (userData) => {
                                     style={[styles.button, styles.buttonClose]}
                                     onPressIn={() => setModalVisible(!modalVisible)}
                                 >
-                                    <Text style={styles.textStyle}>Cerrar</Text>
+                                    <Text style={styles.textStyle}>{i18n.t("cerrar")}</Text>
                                 </Pressable>
                             </View>
                         </View>
@@ -137,7 +138,7 @@ export const Home = (userData) => {
                     cajones.map(cajon => {
                         return (
                             <Card key={cajon.cajon._id}>
-                                <Text style={styles.text} key={cajon.cajon._id} >N° de Cajon:{cajon.cajon.nmbCajon}</Text>
+                                <Text style={styles.text} key={cajon.cajon._id} >{i18n.t("Ndecajon")}{cajon.cajon.nmbCajon}</Text>
                                 <View style={styles.buttonEliminar}>
                                     <ButtonDelete>
                                         <Ionicons onPress={() => { registro(cajon.cajon) }} name="cog-outline" size={25} color={colors.tertiary} />

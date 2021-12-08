@@ -12,5 +12,17 @@
     "alerLogin": "Error al iniciar sesión",
     "alerRegistro": "Registro Exitoso",
     "alerError": "Error al registrar cuenta",
-    "alertErrorUsuario": "Error al registrar al usuario"
+    "alertErrorUsuario": "Error al registrar al usuario",
+    "Text":"Texto",
+    "Buscar":"Buscar", 
+    "Ndecajon":"N° de Cajón:",
+    "Descripcion":"Descripción:",
+    "fechaderegistro":"Fecha de registro:",
+    "cerrar":"Cerrar",
+    "alertProfileCam":"Lo sentimos, necesitamos permisos de cámara para que esto funcione!",
+    "alertProfileErr":"¡Se ha producido un error!",
+    "alertProfilerImag":"Se cargo imagen correctamente!",
+    "signout":"Cerrar Sesión",
+    "uploadimage":" Subir Imagen",
+    "takephoto":" Tomar Foto"
   }

@@ -12,5 +12,17 @@
     "alerLogin": "login failed",
     "alerRegistro": "Registered Correctly",
     "alerError": "Error registering account",
-    "alertErrorUsuario": "Error registering user"
+    "alertErrorUsuario": "Error registering user",
+    "Text":"Text",
+    "Buscar":"Search",
+    "Ndecajon":"N° Parking:",
+    "Descripcion:":"Description:",
+     "fechaderegistro":"Registration date:",
+     "cerrar":"Close",
+     "alertProfileCam":"Sorry, we need camera roll permissions to make this work!",
+     "alertProfileErr":"An error has ocurred!",
+     "alertProfilerImag":"Image upload correctly!",
+     "signout":"Sign out",
+     "uploadimage":" Upload Image",
+     "takephoto":" Take photo"
   }

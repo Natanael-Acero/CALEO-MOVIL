@@ -5,7 +5,7 @@ import { StyledInput, LogoImage, PressableButton } from './Login.styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import jwt_decode from "jwt-decode";
 import { LoginService } from '../../services/Auth/LoginService';
-import i18n from ".localization/i18n"
+import i18n from "../../localization/i18n"
 export const Login = ({ setUser }) => {
 
     const navigation = useNavigation();

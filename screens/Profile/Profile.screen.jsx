@@ -10,6 +10,7 @@ import Toast from 'react-native-root-toast';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { urlBack } from '../../environments/environments.url';
 import axios from 'axios';
+import i18n from "../../localization/i18n"
 export const Profile = ({ user }) => {
   const modalizeRef = useRef(null);
   console.log(user);
@@ -32,7 +33,7 @@ export const Profile = ({ user }) => {
         await ImagePicker.requestCameraPermissionsAsync();
 
         if (status !== 'granted') {
-          alert('Sorry, we need camera roll permissions to make this work!');
+          alert(i18n.t("alertProfileCam"));
         }
       }
       setUserImage(`${urlBack}/imagen?ruta=personas&img=${user.strImg}`)
@@ -65,7 +66,7 @@ export const Profile = ({ user }) => {
       }
     } catch (error) {
       console.error(error);
-      Toast.show("An error has ocurred!", {
+      Toast.show(i18n.t("alertProfileErr"), {
         duration: Toast.durations.SHORT,
         position: Toast.positions.TOP,
         containerStyle: { marginTop: 50 },
@@ -95,7 +96,7 @@ export const Profile = ({ user }) => {
           })
         } catch (error) {
           console.log(error);
-          Toast.show("An error has ocurred!", {
+          Toast.show(i18n.t("alertProfileErr"), {
             duration: Toast.durations.SHORT,
             position: Toast.positions.TOP,
             containerStyle: { marginTop: 50 },
@@ -104,7 +105,7 @@ export const Profile = ({ user }) => {
       }
     } catch (error) {
       console.error(error);
-      Toast.show("An error has ocurred!", {
+      Toast.show(i18n.t("alertProfileErr"), {
         duration: Toast.durations.SHORT,
         position: Toast.positions.TOP,
         containerStyle: { marginTop: 50 },
@@ -120,7 +121,7 @@ export const Profile = ({ user }) => {
     console.log('url', `${urlBack}/carga/?ruta=personas&id=${user._id}`)
     axios.put(`${urlBack}/carga/?ruta=personas&id=${user._id}`, formData)
       .then(res => {
-        Toast.show("Image upload correctly!", {
+        Toast.show(i18n.t("alertProfilerImag"), {
           duration: Toast.durations.SHORT,
           position: Toast.positions.TOP,
           containerStyle: { marginTop: 50 },
@@ -129,7 +130,7 @@ export const Profile = ({ user }) => {
         console.log(res);
       }).catch(err => {
         console.log(err);
-        Toast.show("An error has ocurred!", {
+        Toast.show(i18n.t("alertProfileErr"), {
           duration: Toast.durations.SHORT,
           position: Toast.positions.TOP,
           containerStyle: { marginTop: 50 },
@@ -145,12 +146,12 @@ export const Profile = ({ user }) => {
       <Header> {user.strNombre} {user.strPrimerApellido} {user.strSegundoApellido} </Header>
       <Header> {user.strCorreo}</Header>
       <LogoutButton onPress={handleSignOut}>
-        <TextButton>Sign out</TextButton>
+        <TextButton>{i18n.t("signout")}</TextButton>
       </LogoutButton>
       <Modalize ref={modalizeRef} modalHeight={150} >
 
-        <DrawerButton onPress={pickImage}><DrawerText><Ionicons name="cloud-upload-outline" size={30} color='black' /> Upload Image</DrawerText></DrawerButton>
-        <DrawerButton onPress={takePicture}><DrawerText><Ionicons name="camera-outline" size={30} color='black' /> Take photo</DrawerText></DrawerButton>
+        <DrawerButton onPress={pickImage}><DrawerText><Ionicons name="cloud-upload-outline" size={30} color='black' />{i18n.t("uploadimage")}</DrawerText></DrawerButton>
+        <DrawerButton onPress={takePicture}><DrawerText><Ionicons name="camera-outline" size={30} color='black' />{i18n.t("takephoto")}</DrawerText></DrawerButton>
 
 
       </Modalize>

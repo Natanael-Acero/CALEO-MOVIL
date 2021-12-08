@@ -3,7 +3,7 @@ import { ActivityIndicator, View, Alert, KeyboardAvoidingView } from 'react-nati
 import { useNavigation } from "@react-navigation/core";
 import { StyledInput, LogoImage, PressableButton } from '../Login/Login.styles';
 import { RegistroService } from '../../services/Auth/RegistroService';
-import i18n from ".localization/i18n"
+import i18n from "../../localization/i18n"
 export const Registro = () => {
 
     const navigation = useNavigation();
