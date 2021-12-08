@@ -118,19 +118,25 @@ export const CarRegister = ({ user, getCars }) => {
             await axios.post(`${urlBack}/vehiculo`, newCar).then(async (response) => {
                 Alert.alert('Registro Exitoso', response.data.msg)
                 const idAuto = response.data.cont.autos._id;
-                let formData = new FormData();
-                formData.append("archivo", file, file.name);
 
-                await axios.put(`${urlBack}/carga/?ruta=vehiculos&id=${idAuto}`, formData)
-                    .then(res => {
-                        setCargando(false);
-                    }).catch(error => {
-                        console.log(error, 'errorIMG');
-                    })
+                if (file.name) {
+                    let formData = new FormData();
+                    formData.append("archivo", file, file.name);
+
+                    await axios.put(`${urlBack}/carga/?ruta=vehiculos&id=${idAuto}`, formData)
+                        .then(res => {
+
+                            setCargando(false);
+                        }).catch(error => {
+                            console.log(error, 'errorIMG');
+                        })
+                    await getCars()
+                    navigation.navigate("CarsComponent");
+                }
                 await getCars();
                 navigation.navigate("CarsComponent");
             }).catch((error) => {
-                console.log(error, 'errorGEN')
+                console.log(error.response, 'errorGEN')
                 setCargando(false);
                 Alert.alert('Error al registrar el vehiculo', error.response ? error.response.data.msg : 'Error al registrar el vehiculo')
             })

@@ -7,6 +7,7 @@ import axios from 'axios';
 import { urlBack } from '../../environments/environments.url';
 import { CarRegister } from './CarRegister.component';
 import { colors } from '../../styles/colors.styles';
+import { CarUpdate } from './CarUpdate.component';
 
 const Stack = createNativeStackNavigator();
 
@@ -14,6 +15,8 @@ const Stack = createNativeStackNavigator();
 export const Cars = ({ user }) => {
 
     const [cars, setCars] = useState([]);
+
+    const [updateCar, setUpdateCar] = useState({});
 
     const handleGetCars = async () => {
         await axios.get(`${urlBack}/vehiculo`)
@@ -39,7 +42,7 @@ export const Cars = ({ user }) => {
                     headerShown: true,
                     headerStyle: { backgroundColor: colors.primary },
                 }} >
-                    {() => <CarsComponent setCars={setCars} cars={cars} getCars={handleGetCars}/>}
+                    {() => <CarsComponent setCars={setCars} cars={cars} updateCar={setUpdateCar} getCars={handleGetCars} />}
                 </Stack.Screen>
 
                 <Stack.Screen name="RegistroAuto"
@@ -50,9 +53,13 @@ export const Cars = ({ user }) => {
                     }}>
                     {() => <CarRegister user={user} getCars={handleGetCars} />}
                 </Stack.Screen>
-                {/* <Stack.Screen name="Home" options={{ headerShown: false }}>
-                    {() => <TabsComponent user={user} />}
-                </Stack.Screen> */}
+                <Stack.Screen name="ActualizarAuto" options={{
+                    headerShown: true,
+                    headerTitle: 'Update Car',
+                    headerStyle: { backgroundColor: colors.primary }
+                }}>
+                    {() => <CarUpdate user={user} updateCar={updateCar} setUpdateCar={setUpdateCar} />}
+                </Stack.Screen>
             </Stack.Navigator>
             <StatusBar style='auto' />
         </NavigationContainer>

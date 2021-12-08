@@ -23,7 +23,7 @@ import Toast from 'react-native-root-toast';
 import axios from 'axios';
 
 
-export const CarsComponent = ({ setCars, cars , getCars}) => {
+export const CarsComponent = ({ setCars, cars, getCars, updateCar }) => {
     const navigation = useNavigation();
     const [modalVisible, setModalVisible] = useState(false);
     const [carInfo, setCarInfo] = useState({});
@@ -33,23 +33,34 @@ export const CarsComponent = ({ setCars, cars , getCars}) => {
         setModalVisible(modalVisible);
     }
 
-    const options = (idCar) => {
-        Alert.alert("Options", "Do you want to do with this car?",[
+    const options = (car) => {
+        Alert.alert("Options", "Do you want to do with this car?", [
+            {
+                text: "Cancel",
+                onDismiss: () => console.log('cancel'),
+                style: "cancel"
+            },
             {
                 text: "Edit",
-                onPress: () => alert("Edit"+ idCar ),
+                onPress: () => handleUpdate(car),
                 style: "default"
             },
             {
                 text: "Remove",
-                onPress: () => removeCar(idCar),
+                onPress: () => removeCar(car._id),
                 style: "default"
             }
+
         ])
     }
 
+    const handleUpdate = (car) => {
+        updateCar({ ...car });
+        navigation.navigate('ActualizarAuto')
+    }
+
     const removeCar = (idCar) => {
-        Alert.alert("Remove a car", "Are you sure you want to remove this car?",[
+        Alert.alert("Remove a car", "Are you sure you want to remove this car?", [
             {
                 text: "Cancel",
                 onDismiss: () => console.log("Canceled"),
@@ -60,24 +71,24 @@ export const CarsComponent = ({ setCars, cars , getCars}) => {
                 onPress: () => {
                     axios.delete(`${urlBack}/vehiculo/${idCar}/false`).then(resp => {
                         Toast.show("Car removed correclty!", {
-            duration: Toast.durations.SHORT,
-            position: Toast.positions.TOP,
-            containerStyle: { marginTop: 50 },
-          });
-                getCars();
-          console.log(resp);
+                            duration: Toast.durations.SHORT,
+                            position: Toast.positions.TOP,
+                            containerStyle: { marginTop: 50 },
+                        });
+                        getCars();
+                        console.log(resp);
                     }).catch(err => {
                         Toast.show("An error has ocurred!", {
-            duration: Toast.durations.SHORT,
-            position: Toast.positions.TOP,
-            containerStyle: { marginTop: 50 },
-          });
-          console.log(err.response);
+                            duration: Toast.durations.SHORT,
+                            position: Toast.positions.TOP,
+                            containerStyle: { marginTop: 50 },
+                        });
+                        console.log(err.response);
                     });
                 },
                 style: "confirm"
             }
-            
+
         ])
     }
     const handleAdd = () => {
@@ -92,23 +103,23 @@ export const CarsComponent = ({ setCars, cars , getCars}) => {
                     numColumns={1}
                     renderItem={({ item }) => {
                         return (
-                            <TouchableOpacity onLongPress={() => options(item._id)}>
-                            <Card>
-                                <Image
-                                    source={{
-                                        uri: `${urlBack}/imagen?ruta=vehiculos&img=${item.strImg[0]}`,
-                                    }}
-                                />
-                                <Car>{item.strMarca} {item.strModelo} {item.nmbAño} <Ionicons name="ellipse" size={17} color={item.strColor} /></Car>
-                                <InfoButton onPress={(e) => { handleInfo(item, true) }}>
-                                    <Ionicons name="information-circle" size={30} color={colors.success} />
-                                </InfoButton>
-                            </Card>
+                            <TouchableOpacity onLongPress={() => options(item)}>
+                                <Card>
+                                    <Image
+                                        source={{
+                                            uri: `${urlBack}/imagen?ruta=vehiculos&img=${item.strImg[0]}`,
+                                        }}
+                                    />
+                                    <Car>{item.strMarca} {item.strModelo} {item.nmbAño} <Ionicons name="ellipse" size={17} color={item.strColor} /></Car>
+                                    <InfoButton onPress={(e) => { handleInfo(item, true) }}>
+                                        <Ionicons name="information-circle" size={30} color={colors.success} />
+                                    </InfoButton>
+                                </Card>
                             </TouchableOpacity>
                         );
                     }}
                     keyExtractor={(item) => item._id}
-                    
+
                 />
             ) : (
                 <Label>No cars found :(</Label>
