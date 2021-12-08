@@ -51,5 +51,7 @@
     "caregister":"Registro de coches",
     "put":"Actualización exitosa",
     "putColor":"Cambiar Color",
-    "update":"Actualizar"
+    "update":"Actualizar",
+    "cajones":"Cajónes",
+    "perfil":"Perfil"
   }
