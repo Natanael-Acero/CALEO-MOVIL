@@ -3,7 +3,7 @@ import { ActivityIndicator, View, Alert, KeyboardAvoidingView } from 'react-nati
 import { useNavigation } from "@react-navigation/core";
 import { StyledInput, LogoImage, PressableButton } from '../Login/Login.styles';
 import { RegistroService } from '../../services/Auth/RegistroService';
-
+import i18n from "../../localization/i18n"
 export const Registro = () => {
 
     const navigation = useNavigation();
@@ -38,7 +38,7 @@ export const Registro = () => {
         try {
             console.log(usuario);
             await RegistroService(usuario).then((response) => {
-                Alert.alert('Registro Exitoso', response.data.msg)
+                Alert.alert(i18n.t("alerRegistro"), response.data.msg)
                 setCargando(false);
                 navigation.replace("Login");
                 setUsuario({
@@ -57,7 +57,7 @@ export const Registro = () => {
                 .catch((error) => {
                     console.log(error.response);
                     setCargando(false);
-                    Alert.alert('Error al registrar cuenta', error.response ? error.response.data.msg : 'Error al registrar al usuario')
+                    Alert.alert(i18n.t("alerError"), error.response ? error.response.data.msg : i18n.t("alertErrorUsuario"))
                 })
 
         } catch (error) {
@@ -79,50 +79,50 @@ export const Registro = () => {
                     :
                     <View>
                         <StyledInput
-                            placeholder="Name"
+                            placeholder={i18n.t("name")}
                             value={usuario.strNombre}
                             onChangeText={(text) => handleInputChange({ strNombre: text })}
 
                         />
                         <StyledInput
-                            placeholder="Primer Apellido"
+                            placeholder={i18n.t("primerApellido")}
                             value={usuario.strPrimerApellido}
                             onChangeText={(text) => handleInputChange({ strPrimerApellido: text })}
 
                         />
                         <StyledInput
-                            placeholder="Segundo Apellido"
+                            placeholder={i18n.t("segundoApellido")}
                             value={usuario.strSegundoApellido}
                             onChangeText={(text) => handleInputChange({ strSegundoApellido: text })}
 
                         />
                         <StyledInput
-                            placeholder="Teléfono"
+                            placeholder={i18n.t("telefono")}
                             keyboardType="numeric"
                             value={usuario.nmbTelefono}
                             onChangeText={(text) => handleInputChange({ nmbTelefono: text })}
 
                         />
                         <StyledInput
-                            placeholder="Dirección"
+                            placeholder={i18n.t("direccion")}
                             value={usuario.strDireccion}
                             onChangeText={(text) => handleInputChange({ strDireccion: text })}
 
                         />
                         <StyledInput
-                            placeholder="Email"
+                            placeholder={i18n.t("email")}
                             value={usuario.strCorreo}
                             onChangeText={(text) => handleInputChange({ strCorreo: text })}
 
                         />
                         <StyledInput
-                            placeholder="Password"
+                            placeholder={i18n.t("password")}
                             secureTextEntry={true}
                             value={usuario.strContrasena}
                             onChangeText={(text) => handleInputChange({ strContrasena: text })}
                         />
 
-                        <PressableButton title="Register" color="darkorange" bgColor="white" onPress={handleRegister} />
+                        <PressableButton title={i18n.t("register")} color="darkorange" bgColor="white" onPress={handleRegister} />
 
                     </View>
             }

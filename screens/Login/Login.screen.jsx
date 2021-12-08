@@ -5,7 +5,7 @@ import { StyledInput, LogoImage, PressableButton } from './Login.styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import jwt_decode from "jwt-decode";
 import { LoginService } from '../../services/Auth/LoginService';
-
+import i18n from "../../localization/i18n"
 export const Login = ({ setUser }) => {
 
     const navigation = useNavigation();
@@ -44,7 +44,7 @@ export const Login = ({ setUser }) => {
                 })
                 .catch((error) => {
                     setCargando(false);
-                    Alert.alert('Error al iniciar sesión', error.response ? error.response.data.err.message : 'Error')
+                    Alert.alert(i18n.t("alerLogin"), error.response ? error.response.data.err.message : 'Error')
                 })
         } catch (error) {
             setCargando(false)
@@ -67,18 +67,18 @@ export const Login = ({ setUser }) => {
                     :
                     <View>
                         <StyledInput
-                            placeholder="Email"
+                            placeholder={i18n.t("email")}
                             value={email}
                             onChangeText={(text) => setEmail(text)}
                         />
                         <StyledInput
-                            placeholder="Password"
+                            placeholder={i18n.t("password")}
                             onChangeText={setPassword}
                             value={password}
                             secureTextEntry={true}
                         />
-                        <PressableButton title="Login" color="white" bgColor="darkorange" onPress={handleLogin} disabled={(email == null || email == "") || (password == "" || password == null)} />
-                        <PressableButton title="No Account? Sign Up" color="darkorange" bgColor="white" onPress={() => navigation.navigate('Registro')} />
+                        <PressableButton title={i18n.t("login")} color="white" bgColor="darkorange" onPress={handleLogin} disabled={(email == null || email == "") || (password == "" || password == null)} />
+                        <PressableButton title={i18n.t("noaccount")} color="darkorange" bgColor="white" onPress={() => navigation.navigate('Registro')} />
                     </View>
             }
 
