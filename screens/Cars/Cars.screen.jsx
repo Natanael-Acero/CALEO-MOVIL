@@ -38,7 +38,7 @@ export const Cars = ({ user }) => {
                     headerShown: true,
                     headerStyle: { backgroundColor: colors.primary },
                 }} >
-                    {() => <CarsComponent setCars={setCars} cars={cars} />}
+                    {() => <CarsComponent setCars={setCars} cars={cars} getCars={handleGetCars}/>}
                 </Stack.Screen>
                 <Stack.Screen name="RegistroAuto" component={CarRegister} options={{
                     headerShown: true,
