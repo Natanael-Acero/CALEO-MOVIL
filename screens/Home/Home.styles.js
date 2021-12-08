@@ -21,9 +21,7 @@ const TaskList = styled.FlatList`
 `;
 
 const Card = styled.View`
-    
     justify-content: space-between;
-    align-items: flex-start;
     width: ${Math.round(width)}px;
     border-radius: 15px;
     background-color: ${colors.white} ;
@@ -121,9 +119,72 @@ const ButtonDelete = styled.TouchableOpacity`
         right: 1%;
         font-size: 25px; 
 `;
+const ButtonSucces = styled.TouchableOpacity`
+        margin-top: 7%;
+        position: absolute;
+        left: 1%;
+        font-size: 25px; 
+`;
+const CenteredView = styled.View`
+        flex: 1;
+        justify-content:center;
+        align-items: center;
+`;
 
+const ModalView = styled.View`
+        width: 370;
+        height: 81%;
+        max-width: 370;
+        margin: 15px;
+        background-color: white;
+        border-radius: 20;
+        padding: 30px;
+        box-shadow: 10px 5px 5px black;
+`;
 
+const ViewClose = styled.View`
+        padding: 10%;
+        align-items: center;
+`;
 
+const ScrollView = styled.ScrollView.attrs({
+    contentContainerStyle: props => {
+        return {
+            alignItems: 'center',
+            justifyContent: 'center'
+        }
+    }
+})``
+
+const PressiableButton = styled.Pressable`
+        border-radius: 20px;
+        width: 200px;
+        padding: 10px; 
+        background-color: ${colors.primary};
+`;
+
+const TextView = styled.Text`
+        text-align: left;
+        color: black;
+        padding-left: 5%;
+`;
+
+const TextStyle = styled.Text`
+         color: black;
+        font-weight: bold;
+        text-align: center;
+`;
+
+const ButtonEliminar = styled.View`
+        width: 30%;
+        position: absolute;
+        right: 5%;
+`;
+const ButtonSuccess = styled.View`
+        width: 30%;
+        position: absolute;
+        left: 5%;
+`;
 
 
 export {
@@ -131,5 +192,7 @@ export {
     TaskStatusButton, DeleteButton, AddButtonContainer,
     AddButton, Input, Label, SearchInput,
     ContainerRe, ButtonContainer, ButtonDelete,
-    LabelText
+    LabelText, ViewClose, CenteredView, ModalView,
+    ScrollView, PressiableButton, ButtonEliminar,
+    TextView, TextStyle, ButtonSucces, ButtonSuccess
 }
