@@ -43,9 +43,6 @@ export const TabsComponent = ({ user }) => {
                     headerStyle: {
                         backgroundColor: colors.primary
                     },
-                    headerTitleStyle: {
-                        fontWeight: 'bold',
-                    },
                     tabBarActiveTintColor: colors.primary
                 }}  >
                     {() => <Home user={user} />}
@@ -57,9 +54,7 @@ export const TabsComponent = ({ user }) => {
                     headerStyle: {
                         backgroundColor: colors.secundary
                     },
-                    headerTitleStyle: {
-                        fontWeight: 'bold',
-                    },
+                    headerShown: false,
                     tabBarActiveTintColor: colors.secundary
                 }}  >
                     {() => <Cars user={user} />}
@@ -69,9 +64,6 @@ export const TabsComponent = ({ user }) => {
                     title: 'Perfil',
                     headerStyle: {
                         backgroundColor: colors.secundary
-                    },
-                    headerTitleStyle: {
-                        fontWeight: 'bold',
                     },
                     tabBarActiveTintColor: colors.secundary
                 }}  >

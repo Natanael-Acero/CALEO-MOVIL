@@ -15,7 +15,7 @@ export const Profile = ({ user }) => {
   const modalizeRef = useRef(null);
   const navigation = useNavigation();
   const [userImage, setUserImage] = useState('')
-  const [image, setImage] = useState('')
+  const [image, setImage] = useState('');
 
   const handleSignOut = () => {
     navigation.replace("Login");
@@ -128,6 +128,7 @@ export const Profile = ({ user }) => {
         });
       })
   };
+
   return (
 
     <InfoContainer>
