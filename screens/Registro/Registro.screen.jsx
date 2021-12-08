@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { ActivityIndicator, View, Alert, KeyboardAvoidingView } from 'react-native';
 import { useNavigation } from "@react-navigation/core";
-import { urlBack } from '../../environments/environments.url';
 import { StyledInput, LogoImage, PressableButton } from '../Login/Login.styles';
 import { RegistroService } from '../../services/Auth/RegistroService';
 import i18n from ".localization/i18n"
@@ -18,6 +17,9 @@ export const Registro = () => {
         strSegundoApellido: '',
         strCorreo: '',
         strContrasena: '',
+        strPais: 'MX',
+        strEstado: 'Aguascalientes',
+        idEstado: '',
         nmbTelefono: null,
         strDireccion: ''
     });
@@ -34,6 +36,7 @@ export const Registro = () => {
         setCargando(true);
 
         try {
+            console.log(usuario);
             await RegistroService(usuario).then((response) => {
                 Alert.alert(i18n.t("alerRegistro"), response.data.msg)
                 setCargando(false);
@@ -42,13 +45,17 @@ export const Registro = () => {
                     strNombre: '',
                     strPrimerApellido: '',
                     strSegundoApellido: '',
-                    strEmail: '',
-                    strPassword: '',
-                    strTelefono: '',
+                    strCorreo: '',
+                    strContrasena: '',
+                    strPais: 'MX',
+                    strEstado: 'Aguascalientes',
+                    idEstado: '',
+                    nmbTelefono: null,
                     strDireccion: ''
                 });
             })
                 .catch((error) => {
+                    console.log(error.response);
                     setCargando(false);
                     Alert.alert(i18n.t("alerError"), error.response ? error.response.data.msg : i18n.t("alertErrorUsuario"))
                 })
