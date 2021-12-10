@@ -14,7 +14,8 @@ import {
     ModalView,
     CloseButton,
     ModalText,
-    LabelClose
+    LabelClose,
+    LabelNotFound
 } from "./Cars.styles";
 import { Alert, Modal, Text, TouchableOpacity } from "react-native";
 import { colors } from "../../styles/colors.styles";
@@ -124,7 +125,7 @@ export const CarsComponent = ({ setCars, cars, getCars, updateCar }) => {
 
                 />
             ) : (
-                <Label>{i18n.t("nocarsfound")}(</Label>
+                <LabelNotFound>{i18n.t("nocarsfound")} <Ionicons name="information-circle" size={20} /></LabelNotFound>
             )}
 
             <AddButtonContainer

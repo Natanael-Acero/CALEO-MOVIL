@@ -99,6 +99,15 @@ const LabelText = styled.Text`
 `;
 
 
+const LabelNotFound = styled.Text`
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: ${colors.black};
+  padding:5px;
+`;
+
+
 const Label = styled.Text`
   text-align: center;
   font-size: 20px;
@@ -208,5 +217,5 @@ export {
     AddButton, Input, Label, SearchInput, ButtonContainer, ButtonDelete,
     LabelText, ViewClose, CenteredView, ModalView,
     ScrollView, PressiableButton, ButtonEliminar,
-    TextView, TextStyle, ButtonSucces, ButtonSuccess
+    TextView, TextStyle, ButtonSucces, ButtonSuccess, LabelNotFound
 }

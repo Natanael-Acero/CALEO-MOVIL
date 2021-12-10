@@ -85,6 +85,13 @@ const Label = styled.Text`
   padding:5px;
 `;
 
+const LabelNotFound = styled.Text`
+    align-items: center;
+    font-size: 17px;
+    color: ${colors.black};
+    margin-left: 10px;
+`;
+
 const LabelClose = styled.Text`
  color: black;
 font-weight: bold;
@@ -140,4 +147,4 @@ const DrawerButton = styled.TouchableOpacity`
     align-content: center;
 `
 
-export { LabelClose, DrawerButton, DrawerText, LabelColor, CardColorPicker, ModalText, CloseButton, Container, CarList, Card, Car, InfoButton, AddButtonContainer, AddButton, Label, Image, ModalContainer, ModalView }
+export { LabelNotFound, LabelClose, DrawerButton, DrawerText, LabelColor, CardColorPicker, ModalText, CloseButton, Container, CarList, Card, Car, InfoButton, AddButtonContainer, AddButton, Label, Image, ModalContainer, ModalView }

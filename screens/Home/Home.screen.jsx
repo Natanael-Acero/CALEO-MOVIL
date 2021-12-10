@@ -155,7 +155,7 @@ export const Home = (userData) => {
                         <Card>
                             <TextView >
                                 {i18n.t("nocajones")}
-                                <Ionicons name="sad-outline" size={20} color={colors.tertiary} />
+                                <Ionicons name="sad" size={20} color={colors.tertiary} />
                             </TextView>
                         </Card>
                 }
