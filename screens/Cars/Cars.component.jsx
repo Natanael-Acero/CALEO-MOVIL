@@ -110,7 +110,7 @@ export const CarsComponent = ({ setCars, cars, getCars, updateCar }) => {
                                 <Card>
                                     <Image
                                         source={{
-                                            uri: `${urlBack}/imagen?ruta=vehiculos&img=${item.strImg[0]}`,
+                                            uri: `${urlBack}/imagen?ruta=vehiculos&img=${item.strImg[item.strImg.length - 1]}`,
                                         }}
                                     />
                                     <Car>{item.strMarca} {item.strModelo} {item.nmbAño} <Ionicons name="ellipse" size={17} color={item.strColor} /></Car>

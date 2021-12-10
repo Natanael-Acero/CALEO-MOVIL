@@ -116,7 +116,7 @@ export const CarRegister = ({ user, getCars }) => {
         Keyboard.dismiss();
         try {
             await axios.post(`${urlBack}/vehiculo`, newCar).then(async (response) => {
-                Alert.alert(i18n.t("alertProfileErr"), response.data.msg)
+                Alert.alert('Se registro el auto correctamente')
                 const idAuto = response.data.cont.autos._id;
 
                 if (file.name) {

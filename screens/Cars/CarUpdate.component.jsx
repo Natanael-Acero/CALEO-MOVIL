@@ -38,7 +38,7 @@ export const CarUpdate = ({ user, updateCar, setUpdateCar, getCars }) => {
         strModelo: updateCar.strModelo,
         strDescripcion: updateCar.strDescripcion,
         nmbAño: updateCar.nmbAño,
-        strImg: updateCar.strImg,
+        strImg: [],
         strPlacas: updateCar.strPlacas,
         strColor: updateCar.strColor,
         idPersona: user._id,
@@ -97,37 +97,37 @@ export const CarUpdate = ({ user, updateCar, setUpdateCar, getCars }) => {
     }
 
     const handleUpdate = async (e) => {
+        const idAuto = newCar._id;
         e.preventDefault();
         setCargando(true);
         Keyboard.dismiss();
-        console.log(newCar)
+        // console.log(newCar)
+        let formData = new FormData();
+        formData.append("archivo", file, file.name);
         try {
-            await axios.put(`${urlBack}/vehiculo`, newCar).then(async (response) => {
-                Alert.alert(i18n.t("put"), response.data.msg)
-                const idAuto = newCar._id;
+            await axios.put(`${urlBack}/carga/?ruta=vehiculos&id=${idAuto}`, formData)
+                .then((res) => {
+                    const arrImg = res.data.usrDB.strImg;
+                    const ObjectImg = { strImg: arrImg[arrImg.length - 1] };
+                    console.log(ObjectImg);
+                    axios.put(`${urlBack}/vehiculo`, { ...newCar, strImg: ObjectImg.strImg }).then(async (response) => {
+                        Alert.alert(i18n.t("put"), response.data.msg)
+                        console.log(response.data, 'here');
+                        setUpdateCar({});
+                        await getCars()
+                        navigation.navigate("CarsComponent");
 
-                setUpdateCar({});
+                    }).catch((error) => {
+                        getCars()
+                        console.log(error, 'errorGEN')
+                        setCargando(false);
+                        Alert.alert(i18n.t("alerErrorCarRegister"), error.response ? error.response.data.msg : i18n.t("alerErrorCarRegister"))
+                    })
+                }).catch(error => {
+                    setCargando(false);
+                    console.log(error, 'errorIMG');
+                })
 
-                if (file.name) {
-                    let formData = new FormData();
-                    formData.append("archivo", file, file.name);
-
-                    await axios.put(`${urlBack}/carga/?ruta=vehiculos&id=${idAuto}`, formData)
-                        .then(res => {
-                            setCargando(false);
-                        }).catch(error => {
-                            console.log(error, 'errorIMG');
-                        })
-                }
-                await getCars()
-                navigation.navigate("CarsComponent");
-
-            }).catch((error) => {
-                getCars()
-                console.log(error, 'errorGEN')
-                setCargando(false);
-                Alert.alert(i18n.t("alerErrorCarRegister"), error.response ? error.response.data.msg : i18n.t("alerErrorCarRegister"))
-            })
         } catch (error) {
             Alert.alert('Error', error.response.data.msg);
         }
@@ -253,7 +253,7 @@ export const CarUpdate = ({ user, updateCar, setUpdateCar, getCars }) => {
                                 onChangeText={(text) => handleInputChange({ strPlacas: text })}
                             />
                             <PressableButton title={i18n.t("putColor")} color="darkorange" bgColor="white" onPress={handleAddColor} />
-                            <PressableButton title={i18n.t("img")}  color="darkorange" bgColor="white" onPress={onOpen} />
+                            <PressableButton title={i18n.t("img")} color="darkorange" bgColor="white" onPress={onOpen} />
                             <PressableButton title={i18n.t("update")} color="white" bgColor="darkorange" onPress={handleUpdate} />
                         </View>
                     )
