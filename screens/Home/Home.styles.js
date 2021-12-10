@@ -9,26 +9,23 @@ const Container = styled.SafeAreaView`
     flex: 1;
     align-items: center;
 `;
-const ContainerRe = styled.SafeAreaView`
-    flex: 1;
-   margin: 10px;
-   background-color: #E8E8E8;
-   border-radius: 40px;
-`;
 
 const TaskList = styled.FlatList`
     flex: 1;
 `;
 
 const Card = styled.View`
+    flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     width: ${Math.round(width)}px;
+    height: 80px;
     border-radius: 15px;
     background-color: ${colors.white} ;
-    margin: 2%;
-    padding: 3%;
+    padding: 0;
+    margin: 5px;
     box-shadow: 1px 1px 2px #cfcfcf;
-    width: 95%;
+    text-align: center;
 `;
 
 
@@ -51,6 +48,7 @@ const Task = styled.Text`
     padding: 20px ;
 `;
 
+
 const AddButtonContainer = styled.KeyboardAvoidingView`
     background-color: transparent;
     flex-direction: row;
@@ -63,17 +61,24 @@ const AddButton = styled.TouchableOpacity`
     align-items: center;
 `;
 
+
 const Input = styled.TextInput`
     background-color: ${colors.white};
-    flex: 3;
+    flex: 5;
     padding: 5px;
     margin: 10px;
-    border-radius: 8px;
-    height: 40px;
+
     width: 100%;
-    font-size: 20px;
-    box-shadow: 1px 3px 5px #cfcfcf;
+        box-shadow: 1px 3px 5px #cfcfcf;
+
+    background-color: ${colors.white};
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 10px;
+    height: auto;
+    
   `;
+
 const SearchInput = styled.TextInput`
   border: 1.5px orange;
   margin: 15px;
@@ -85,9 +90,9 @@ const SearchInput = styled.TextInput`
 `;
 const LabelText = styled.Text`
   text-align: center;
-  font-size: 20px;
+  font-size: 18px;
   color: ${colors.black};
-  border: solid 1px;
+  /* border: solid 1px; */
   border-radius: 10px;
   padding: 3%;
   margin-bottom: 8%;
@@ -99,6 +104,7 @@ const Label = styled.Text`
   font-size: 20px;
   color: ${colors.white};
 `;
+
 const ButtonContainer = styled.TouchableOpacity`
         width: 32px;
         height: 32px;
@@ -112,10 +118,10 @@ const ButtonContainer = styled.TouchableOpacity`
         
 `;
 const ButtonDelete = styled.TouchableOpacity`
-        margin-top: 7%;
-        position: absolute;
-        right: 1%;
-        font-size: 25px; 
+ 
+flex:1;
+align-items: center;
+    /* margin-right: 10px; */
 `;
 const ButtonSucces = styled.TouchableOpacity`
         margin-top: 7%;
@@ -130,14 +136,22 @@ const CenteredView = styled.View`
 `;
 
 const ModalView = styled.View`
-        width: 370;
-        height: 81%;
+        /* width: 370;
+        height: 60%;
         max-width: 370;
         margin: 15px;
         background-color: white;
         border-radius: 20;
         padding: 30px;
-        box-shadow: 10px 5px 5px black;
+        box-shadow: 10px 5px 5px black; */
+
+         margin: 20px;
+    background-color: ${colors.white};
+    box-shadow: 1px 2px 15px #a3a3a3;
+        border-radius: 15px;
+    padding: 35px;
+    align-items: center;
+    max-height: 55%
 `;
 
 const ViewClose = styled.View`
@@ -155,16 +169,19 @@ const ScrollView = styled.ScrollView.attrs({
 })``
 
 const PressiableButton = styled.Pressable`
-        border-radius: 20px;
-        width: 200px;
-        padding: 10px; 
-        background-color: ${colors.primary};
+            background-color: ${colors.primary};
+    border-radius: 10px;
+    align-items: center;
+    padding: 10px;
 `;
 
 const TextView = styled.Text`
-        text-align: left;
-        color: black;
-        padding-left: 5%;
+       flex: 5;
+    align-items: center;
+    font-size: 17px;
+    color: ${colors.black};
+    padding:10px;
+    margin-left: 10px;
 `;
 
 const TextStyle = styled.Text`
@@ -188,8 +205,7 @@ const ButtonSuccess = styled.View`
 export {
     Container, TaskList, Card, Task,
     TaskStatusButton, DeleteButton, AddButtonContainer,
-    AddButton, Input, Label, SearchInput,
-    ContainerRe, ButtonContainer, ButtonDelete,
+    AddButton, Input, Label, SearchInput, ButtonContainer, ButtonDelete,
     LabelText, ViewClose, CenteredView, ModalView,
     ScrollView, PressiableButton, ButtonEliminar,
     TextView, TextStyle, ButtonSucces, ButtonSuccess

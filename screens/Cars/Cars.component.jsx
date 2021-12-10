@@ -13,9 +13,10 @@ import {
     ModalContainer,
     ModalView,
     CloseButton,
-    ModalText
+    ModalText,
+    LabelClose
 } from "./Cars.styles";
-import { Alert, Modal, TouchableOpacity } from "react-native";
+import { Alert, Modal, Text, TouchableOpacity } from "react-native";
 import { colors } from "../../styles/colors.styles";
 import { urlBack } from '../../environments/environments.url';
 import { useNavigation } from "@react-navigation/core";
@@ -144,12 +145,12 @@ export const CarsComponent = ({ setCars, cars, getCars, updateCar }) => {
             >
                 <ModalContainer>
                     <ModalView >
-                        <ModalText>{i18n.t("Descripcion")} {carInfo.strDescripcion}</ModalText>
-                        <ModalText>{i18n.t("placas")} {carInfo.strPlacas}</ModalText>
-                        <ModalText>{i18n.t("cajon")} {carInfo.cajon ? carInfo.cajon[0].nmbCajon : 'N/A'}</ModalText>
-                        <ModalText>{i18n.t("estatus")} {carInfo.cajon ? (carInfo.cajon[0].blnRentado ? 'Vigente' : 'Pago pendiente') : ''}</ModalText>
+                        <ModalText>{i18n.t("Descripcion")} <Text style={{ fontWeight: 'bold' }}>{carInfo.strDescripcion}</Text> </ModalText>
+                        <ModalText>{i18n.t("placas")}: <Text style={{ fontWeight: 'bold' }}>{carInfo.strPlacas}</Text></ModalText>
+                        <ModalText>{i18n.t("cajon")} <Text style={{ fontWeight: 'bold' }}>{carInfo.cajon ? carInfo.cajon[0].nmbCajon : 'N/A'}</Text> </ModalText>
+                        <ModalText>{i18n.t("estatus")} <Text style={{ fontWeight: 'bold' }}>{carInfo.cajon ? (carInfo.cajon[0].blnRentado ? 'Vigente' : 'Pago pendiente') : ''}</Text> </ModalText>
                         <CloseButton onPress={() => handleInfo({}, false)}>
-                            <Label>{i18n.t("cerrar")}</Label>
+                            <LabelClose>{i18n.t("cerrar")}</LabelClose>
                         </CloseButton>
                     </ModalView>
                 </ModalContainer>

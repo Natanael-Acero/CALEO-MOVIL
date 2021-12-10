@@ -11,6 +11,7 @@ const Container = styled.SafeAreaView`
 
 const CarList = styled.FlatList`
     flex: 1;
+    margin-top: 5px;
 `;
 
 const Card = styled.View`
@@ -84,6 +85,14 @@ const Label = styled.Text`
   padding:5px;
 `;
 
+const LabelClose = styled.Text`
+ color: black;
+font-weight: bold;
+text-align: center
+`;
+
+;
+
 const LabelColor = styled.Text`
   align-items: center;
   font-size: 14px;
@@ -102,10 +111,10 @@ const ModalView = styled.View`
     margin: 20px;
     background-color: ${colors.white};
     box-shadow: 1px 2px 15px #a3a3a3;
-        border-radius: 15px;
+    border-radius: 15px;
     padding: 35px;
     align-items: center;
-    max-height: 60%
+    max-height: 65%
 `;
 
 const CloseButton = styled.Pressable`
@@ -113,11 +122,13 @@ const CloseButton = styled.Pressable`
     border-radius: 10px;
     align-items: center;
     padding: 10px;
+    margin: 10px;
 `;
 
 const ModalText = styled.Text`
-    margin-bottom: 15px;
-    text-align: center;
+     font-size: 17px;
+    color: ${colors.black};
+    padding:10px;
 `;
 
 const DrawerText = styled.Text`
@@ -129,4 +140,4 @@ const DrawerButton = styled.TouchableOpacity`
     align-content: center;
 `
 
-export { DrawerButton, DrawerText, LabelColor, CardColorPicker, ModalText, CloseButton, Container, CarList, Card, Car, InfoButton, AddButtonContainer, AddButton, Label, Image, ModalContainer, ModalView }
+export { LabelClose, DrawerButton, DrawerText, LabelColor, CardColorPicker, ModalText, CloseButton, Container, CarList, Card, Car, InfoButton, AddButtonContainer, AddButton, Label, Image, ModalContainer, ModalView }

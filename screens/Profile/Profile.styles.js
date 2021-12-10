@@ -7,9 +7,13 @@ const StyledView = styled.View`
     justify-content: center;
 `
 const Header = styled.Text`
+
+align-items: center;
+align-content: center;
     align-self: center;
     color: black;
     font-size: 20px;
+    padding: 10px;
 `
 const InfoContainer = styled.View`
     flex: 1;
@@ -36,8 +40,8 @@ const LogoutButton = styled.TouchableOpacity`
 const TextButton = styled.Text`
     align-self: center;
     color: white;
-    font-size: 20px;
-    font-weight: bold;
+    font-size: 17px;
+    /* font-weight: bold; */
 `;
 
 const DrawerText = styled.Text`

@@ -34,6 +34,7 @@ export const Profile = ({ user }) => {
           alert(i18n.t("alertProfileCam"));
         }
       }
+      console.log(user)
       setUserImage(`${urlBack}/imagen?ruta=personas&img=${user.strImg}`)
     })();
   }, []);
@@ -135,8 +136,10 @@ export const Profile = ({ user }) => {
       <TouchableOpacity onPress={onOpen}>
         <AccountImage source={{ uri: userImage }} />
       </TouchableOpacity>
-      <Header> {user.strNombre} {user.strPrimerApellido} {user.strSegundoApellido} </Header>
-      <Header> {user.strCorreo}</Header>
+      <Header><Ionicons name="person" size={19} /> {user.strNombre} {user.strPrimerApellido} {user.strSegundoApellido} </Header>
+      <Header><Ionicons name="mail" size={19} /> {user.strCorreo}</Header>
+      <Header><Ionicons name="call" size={19} /> {user.nmbTelefono}</Header>
+      <Header><Ionicons name="home" size={19} /> {user.strDireccion}, {user.strEstado}, {user.strPais}</Header>
       <LogoutButton onPress={handleSignOut}>
         <TextButton>{i18n.t("signout")}</TextButton>
       </LogoutButton>

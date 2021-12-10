@@ -52,10 +52,10 @@ export const TabsComponent = ({ user }) => {
                 <Tab.Screen name="My cars" options={{
                     title: i18n.t("mycar"),
                     headerStyle: {
-                        backgroundColor: colors.secundary
+                        backgroundColor: colors.primary
                     },
                     headerShown: false,
-                    tabBarActiveTintColor: colors.secundary
+                    tabBarActiveTintColor: colors.primary
                 }}  >
                     {() => <Cars user={user} />}
                 </Tab.Screen>
@@ -63,9 +63,9 @@ export const TabsComponent = ({ user }) => {
                 <Tab.Screen name="My profile" options={{
                     title: i18n.t("perfil"),
                     headerStyle: {
-                        backgroundColor: colors.secundary
+                        backgroundColor: colors.primary
                     },
-                    tabBarActiveTintColor: colors.secundary
+                    tabBarActiveTintColor: colors.primary
                 }}  >
                     {() => <Profile user={user} />}
                 </Tab.Screen>

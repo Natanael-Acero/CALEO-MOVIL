@@ -2,9 +2,9 @@ import React, { useEffect, useState, useCallback } from 'react'
 import { Modal, Text, RefreshControl } from 'react-native'
 import { Ionicons } from "@expo/vector-icons";
 import {
-    SearchInput, ContainerRe, ButtonContainer,
+    SearchInput, ButtonContainer,
     Label, Card, ButtonDelete, LabelText, ViewClose, CenteredView, ModalView, ScrollView,
-    PressiableButton, ButtonEliminar, TextStyle, TextView, ButtonSucces, ButtonSuccess
+    PressiableButton, ButtonEliminar, TextStyle, TextView, ButtonSucces, ButtonSuccess, Container, AddButtonContainer, Input, AddButton
 } from './Home.styles'
 import { colors } from "../../styles/colors.styles";
 import { UsuarioService } from '../../services/Usuario/UsuarioService'
@@ -51,6 +51,7 @@ export const Home = (userData) => {
             ...field
         });
     }
+
     const filter = (text) => {
         setTextSearch(text)
         if (text == "") {
@@ -68,9 +69,8 @@ export const Home = (userData) => {
                 console.log(err);
             })
         }
-
-
     }
+
     const registro = (cajon) => {
         setModalVisible(!modalVisible)
         setDescripcion({
@@ -85,11 +85,15 @@ export const Home = (userData) => {
     }, [])
 
     return (
-        <ContainerRe >
-            <SearchInput title={i18n.t("Text")} placeholder={i18n.t("Buscar"),'...'} value={textSearch} onChangeText={(text) => { filter(text) }} />
-            <ButtonContainer disabled={false} onPress={() => { navigation.navigate("My cars"); }} >
-                <Label>+</Label>
-            </ButtonContainer>
+        <Container>
+            <AddButtonContainer
+                behavior={Platform.OS === "ios" ? "padding" : ""}
+            >
+                <Input title={i18n.t("Text")} placeholder={i18n.t("Buscar"), '...'} keyboardType="numeric" value={textSearch} onChangeText={(text) => { filter(text) }} />
+                <AddButton disabled={false} onPress={() => { navigation.navigate("My cars"); }}>
+                    <Ionicons name="add-circle" size={50} color={colors.success} />
+                </AddButton>
+            </AddButtonContainer>
             <ScrollView
                 refreshControl={
                     <RefreshControl
@@ -113,23 +117,21 @@ export const Home = (userData) => {
                             </LabelText>
                             <Text style={{ textAlign: 'left' }}>{i18n.t("Descripcion")}</Text>
                             <LabelText>
-                                <Text>
+                                <Text style={{ fontWeight: 'bold' }}>
                                     {descripcion.strDescripcion}
                                 </Text>
                             </LabelText>
                             <Text style={{ textAlign: 'left' }}>{i18n.t("fechaderegistro")}</Text>
                             <LabelText>
-                                <Text>
+                                <Text style={{ fontWeight: 'bold' }}>
                                     {moment(descripcion.created_at).format('LLL')}
                                 </Text>
                             </LabelText>
-                            <ViewClose>
-                                <PressiableButton
-                                    onPressIn={() => setModalVisible(!modalVisible)}
-                                >
-                                    <TextStyle >{i18n.t("cerrar")}</TextStyle>
-                                </PressiableButton>
-                            </ViewClose>
+
+                            <PressiableButton onPressIn={() => setModalVisible(!modalVisible)} >
+                                <TextStyle >{i18n.t("cerrar")}</TextStyle>
+                            </PressiableButton>
+
                         </ModalView>
                     </CenteredView>
                 </Modal>
@@ -139,12 +141,12 @@ export const Home = (userData) => {
                         cajones.map(cajon => {
                             return (
                                 <Card key={cajon.cajon._id}>
-                                    <TextView key={cajon.cajon._id} >{i18n.t("Ndecajon")}{cajon.cajon.nmbCajon}</TextView>
-                                    <ButtonEliminar >
-                                        <ButtonDelete>
-                                            <Ionicons onPress={() => { registro(cajon.cajon) }} name="cog-outline" size={25} color={colors.tertiary} />
-                                        </ButtonDelete>
-                                    </ButtonEliminar>
+                                    <TextView key={cajon.cajon._id} > {i18n.t("Ndecajon")}  {cajon.cajon.nmbCajon}</TextView>
+
+                                    <ButtonDelete>
+                                        <Ionicons onPress={() => { registro(cajon.cajon) }} name="cog-outline" size={30} color={colors.success} />
+                                    </ButtonDelete>
+
                                 </Card>
                             )
                         })
@@ -159,7 +161,7 @@ export const Home = (userData) => {
                 }
 
             </ScrollView>
-        </ContainerRe>
+        </Container >
     )
 
 }
